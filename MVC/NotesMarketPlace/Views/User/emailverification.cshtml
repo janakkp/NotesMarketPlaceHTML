@@ -1,0 +1,47 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatibility" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<!-- title -->
+<title>Notes - Market Place</title>
+
+<!-- Favicon-for icon if website title -->
+<link rel="shortcut icon" href="~/img/favicon.ico">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+@Styles.Render("~/Content/css")
+</head>
+<body style="background-color: black">
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/login.js"></script>
+
+    <form id="email-verification">
+        <div>
+            <img src="~/img/logo.png">
+        </div>
+        <div>
+            <h1>Email Verification</h1>
+            <h5>@ViewBag.name</h5>,
+            <p>
+                Thanks for Signing up!<br>
+                Simply clickk below for email verification.
+            </p>
+            <button type="submit" class="btn btn-primary">@Html.ActionLink("VERIFY EMAIL ADDRESS", "Login")</button>
+        </div>
+    </form>
+</body>
+
+</html>
