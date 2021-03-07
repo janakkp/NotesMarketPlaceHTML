@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatibility" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- title -->
+    <title>Notes - Market Place</title>
+
+    <!-- Favicon-for icon if website title -->
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+
+    <!--- Bootstrap CSS --->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+
+    <!--Responsive tabs-->
+    <link rel="stylesheet" href="css/responsive-tabs/responsive-tabs.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="css/responsive.css">
+
+
+</head>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="65">
+    <div class="content">
+        <!-- header -->
+        <header>
+            <nav class="navbar navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="site-nav-wrapper">
+                        <div class="navbar-header">
+                            <!-- Mobile Menu Open Button -->
+                            <span id="mobile-nav-open-btn">&#9776;</span>
+                            <!-- Logo -->
+                            <a href="#home" class="navbar-brand"><img src="img/logo.png" alt="logo"></a>
+                        </div>
+                        <!-- Main Menu -->
+                        <div class="container">
+                            <div class="collapse navbar-collapse">
+                                <img class="sample" src="img/logo.png" alt="logo">
+                                <ul class="nav navbar-nav pull-right">
+                                    <li><a class="smooth-scroll a1" href="#">Search Notes</a></li>
+                                    <li><a class="smooth-scroll a1" href="#">Sell Your Notes </a></li>
+                                    <li><a class="smooth-scroll a1" href="#">Buyer Reuests</a></li>
+                                    <li><a class="smooth-scroll a1" href="#">FAQ</a></li>
+                                    <li><a class="smooth-scroll a1" href="#">Contact Us</a></li>
+                                    <li><a class="smooth-scroll" href="#"><img src="img/user-img.png"></a></li>
+                                    <li><a class="smooth-scroll" href="#"><button id="logout">Logout</button></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Mobile Menu -->
+                        <div id="mobile-nav">
+                            <!-- Mobile Menu Close Button -->
+                            <img id="mobile-nav-logo" src="img/logo.png" alt="logo">
+                            <span id="mobile-nav-close-btn">&times;</span>
+                            <div id="mobile-nav-content">
+                                <ul class="nav">
+                                    <li><a class="smooth-scroll a1" href="#">Search Notes</a></li>
+                                    <li><a class="smooth-scroll a1" href="#">Sell Your Notes </a></li>
+                                    <li><a class="smooth-scroll a1" href="#">Buyer Reuests</a></li>
+                                    <li><a class="smooth-scroll a1" href="#">FAQ</a></li>
+                                    <li><a class="smooth-scroll a1" href="#">Contact Us</a></li>
+                                    <li><a class="smooth-scroll" href="#"><img src="img/user-img.png"></a></li>
+                                    <li><a class="smooth-scroll" href="#"><button id="logout">Logout</button></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <!-- End header -->
+
+<div id="dashboard">
+    <section id="dashboard-1">
+        <div class="container">   
+               <h2>Dashboard</h2>
+            <div class="row">
+                <div class="col-md-7 col-sm-12 col-xs-12">
+                    <div class="row left">
+                        <div class="col-md-4 col-sm-4 col-xs-4 box">
+                        <img src="img/earning-icon.svg">
+                            <h3>My Earning</h3>
+                        </div>
+                        <div class="col-md-8 col-sm-8 col-xs-8 box">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <h3>100</h3>
+                                    <h4>Number of Notes Sold</h4>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <h3>$10,00,000</h3>
+                                    <h4>Money Earned</h4>
+                                </div>
+                            </div>                
+                        </div>
+                    </div>                
+                </div>
+            </div>        
+        </div>
+    </section>
+
+           <section id="dashboard-2">
+            <div id="table" class="manage-administrator">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-7 col-sm-6 col-xs-12">
+                            <h2>In Process Notes</h2>
+                        </div>
+                        <div class="col-md-5 col-sm-6 col-xs-12 search">
+                            <input class="mainLoginInput" type="text" placeholder="&#61442; Search" />
+                            <button id="submit" type="submit">SEARCH</button>
+                        </div>
+                    </div>
+                    <div style="overflow-x:auto;">
+
+                        <table>
+                        <tr>
+                            <th>ADDED DATE</th>
+                            <th>TITLE</th>
+                            <th>CATEGORY</th>
+                            <th>STATUS</th>
+                            <th style="text-align: center;">ACTIONS</th>
+                        </tr>
+                        <tr>
+                            <td>09-10-2020</td>
+                            <td>Data Science</td>
+                            <td>Science</td>
+                            <td>Draft</td>
+                            <td style="text-align: center;"><img src="img/edit.png">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/delete.png"></td>
+                        </tr>
+                        <tr>
+                            <td>10-10-2020</td>
+                            <td>Accounts</td>
+                            <td>Commerce</td>
+                            <td>In Review</td>
+                            <td style="text-align: center;"><img src="img/eye.png"></td>
+                        </tr>
+                        <tr>
+                            <td>11-10-2020</td>
+                            <td>Social Studies</td>
+                            <td>Social</td>
+                            <td>Submitted</td>
+                            <td style="text-align: center;"><img src="img/eye.png"></td>
+                        </tr>
+                        <tr>
+                            <td>12-10-2020</td>
+                            <td>AI</td>
+                            <td>IT</td>
+                            <td>Submitted</td>
+                            <td style="text-align: center;"><img src="img/eye.png"></td>
+                        </tr>
+                        <tr>
+                            <td>13-10-2020</td>
+                            <td>Lorem ipsum</td>
+                            <td>Lorem</td>
+                            <td>Draft</td>
+                            <td style="text-align: center;"><img src="img/edit.png">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/delete.png"></td>
+                        </tr>
+                        </table>
+                    </div>
+                </div>
+                <div id="pagination">
+                    <div class="pagination">
+                        <a href="#"><img src="img/left-arrow.png"></a>
+                        <a class="active" href="#">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#"><img src="img/right-arrow.png"></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="dashboard-2">
+            <div id="table" class="manage-administrator">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-7 col-sm-6 col-xs-12">
+                            <h2>Published Notes</h2>
+                        </div>
+                        <div class="col-md-5 col-sm-6 col-xs-12 search">
+                            <input class="mainLoginInput" type="text" placeholder="&#61442; Search" />
+                            <button id="submit" type="submit">SEARCH</button>
+                        </div>
+                    </div>
+                    <div style="overflow-x:auto;">
+                    <table>
+                        <tr>
+                            <th>ADDED DATE</th>
+                            <th>TITLE</th>
+                            <th>CATEGORY</th>
+                            <th>SELL TYPE</th>
+                            <th>PRICE</th>
+                            <th style="text-align: center;">ACTIONS</th>
+                        </tr>
+                        <tr>
+                            <td>09-10-2020</td>
+                            <td>Data Science</td>
+                            <td>Science</td>
+                            <td>Paid</td>
+                            <td>$250</td>
+                            <td style="text-align: center;"><img src="img/eye.png"></td>
+                        </tr>
+                        <tr>
+                            <td>10-10-2020</td>
+                            <td>Accounts</td>
+                            <td>Commerce</td>
+                            <td>Free</td>
+                            <td>$0</td>
+                            <td style="text-align: center;"><img src="img/eye.png"></td>
+                        </tr>
+                        <tr>
+                            <td>11-10-2020</td>
+                            <td>Social Studies</td>
+                            <td>Social</td>
+                            <td>Free</td>
+                            <td>$0</td>
+                            <td style="text-align: center;"><img src="img/eye.png"></td>
+                        </tr>
+                        <tr>
+                            <td>12-10-2020</td>
+                            <td>AI</td>
+                            <td>IT</td>
+                            <td>Paid</td>
+                            <td>$158</td>
+                            <td style="text-align: center;"><img src="img/eye.png"></td>
+                        </tr>
+                        <tr>
+                            <td>13-10-2020</td>
+                            <td>Lorem ipsum</td>
+                            <td>Lorem</td>
+                            <td>Free</td>
+                            <td>$0</td>
+                            <td style="text-align: center;"><img src="img/eye.png"></td>
+                        </tr>
+                    </table>
+
+                    </div>
+                </div>
+                <div id="pagination">
+                    <div class="pagination">
+                        <a href="#"><img src="img/left-arrow.png"></a>
+                        <a class="active" href="#">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#"><img src="img/right-arrow.png"></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </div>  
+    </div>
+    <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-sm-9 col-xs-8">
+                        <p>Copyright &copy; Tatvasoft All Rights Reserved.</p>
+                    </div>
+                    <div class="col-md-2 col-sm-3 col-xs-4">
+                    <ul class="social-list">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+    </footer>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
