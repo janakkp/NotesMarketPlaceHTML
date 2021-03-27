@@ -11,5 +11,6 @@ namespace NotesMarketPlace.Models
 
         public User userlist { get; set; }
 
+        public Paid paidlist { get; set; }
     }
 }

@@ -68,6 +68,13 @@
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="SellerNotes" Relationship="Self.FK_SellerNotes_NoteTypes" FromRole="NoteTypes" ToRole="SellerNotes" />
   </EntityType>
+  <EntityType Name="Paid">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="PaidType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
   <EntityType Name="ReferenceData">
     <Key>
       <PropertyRef Name="ID" />
@@ -474,6 +481,7 @@
     <EntitySet Name="Downloads" EntityType="Self.Download" />
     <EntitySet Name="NoteCategories" EntityType="Self.NoteCategory" />
     <EntitySet Name="NoteTypes" EntityType="Self.NoteType" />
+    <EntitySet Name="Paids" EntityType="Self.Paid" />
     <EntitySet Name="ReferenceDatas" EntityType="Self.ReferenceData" />
     <EntitySet Name="SellerNotes" EntityType="Self.SellerNote" />
     <EntitySet Name="SellerNotesAttachements" EntityType="Self.SellerNotesAttachement" />

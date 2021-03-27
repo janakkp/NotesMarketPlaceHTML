@@ -7,19 +7,18 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NotesMarketPlace.Models
 {
-    public class contactus
+    public class ContactUs
     {
-
         [MinLength(4)]
-        [Required(ErrorMessage = "Please enter the Your Name")]
-        public string Name { get; set; }
+        [Required(ErrorMessage = "Please enter Your Name")]
+        public string FirstName { get; set; }
 
         [RegularExpression(@"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")]
         [MinLength(3)]
-        [Required(ErrorMessage = "Please enter the Your EmailId")]
+        [Required(ErrorMessage = "Please enter Your EmailId")]
         public string EmailID { get; set; }
 
-        
+
         [MinLength(5)]
         [Required(ErrorMessage = "Field is required")]
         public string Subject { get; set; }

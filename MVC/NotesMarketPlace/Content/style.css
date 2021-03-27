@@ -843,8 +843,8 @@ textarea{
 #signup .form-group .field-icon{
   float: right;
   font-size: 18px;
-  margin-left: -35px;
-  margin-top: -30px;
+  margin-left: -25px;
+  margin-top: -25px;
   position: relative;
   z-index: 2;
 }

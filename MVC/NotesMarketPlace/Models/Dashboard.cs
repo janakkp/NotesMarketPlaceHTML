@@ -13,5 +13,8 @@ namespace NotesMarketPlace.Models
 
         public NoteCategory notecategory { get; set; }
 
+        public Paid paidlist { get; set;}
+
+  
     }
 }

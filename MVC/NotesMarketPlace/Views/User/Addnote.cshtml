@@ -2,224 +2,213 @@
 
 @{
     ViewBag.Title = "Addnote";
+    Layout = "~/Views/Shared/Registered.cshtml";
+}
+
+@if (TempData["validinfo"] != null)
+{
+    <script>alert('@TempData["validinfo"]');</script>
 }
 
 <h2>Addnote</h2>
-
 
 @using (Html.BeginForm("Addnote", "User", FormMethod.Post, new
 {
     enctype = "multipart/form-data"
 })) { 
-@Html.AntiForgeryToken()
-
-<div id="add-note">
-    <section id="banner">
-        <div id="banner-heading">
-            <h1>Add Notes</h1>
-            @if (ViewBag.Message != null)
-            {
-                <script type="text/javascript">
-
-            window.onload = function () {
-                alert("@ViewBag.Message");
-            };
-                </script>
-
-            }
-        </div>
-    </section>
-    <section id="add-note-1">
-        <div class="container">
-            <h2>Basic Note Details</h2>
-            <div class="row">
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label>Title *</label>
-                        <div>
-                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label>Category *</label>
-                        @Html.DropDownList("Category", ViewBag.category as SelectList, "Selecct NoteCategory")
-                        @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+    @Html.AntiForgeryToken()
+    <div id="add-note">
+        <section id="banner">
+            <div id="banner-heading">
+                <h1>Add Notes</h1>
             </div>
+        </section>
+        <section id="add-note-1">
+            <div class="container">
+                <h2>Basic Note Details</h2>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Title*</label>
+                            <div>
+                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Title" } })
+                                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Category*</label>
+                            @Html.DropDownList("Category", ViewBag.category as SelectList, "Select NoteCategory")
+                            @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
 
-            <div class="row">
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label>Display Picture*</label>
-                        <div class="drop-zone">
-                            <span class="drop-zone__prompt"><img src="~/img/upload-note.png"><br>Upload your notes</span>
-                            <input type="file" name="DisPlayPictureFile" class="drop-zone__input" style="display:none;">
-                            @Html.ValidationMessageFor(model => model.DisplayPictureFile, "", new { @class = "text-danger" })
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Display Picture*</label>
+                            <div class="drop-zone">
+                                <span class="drop-zone__prompt"><img src="~/img/upload-note.png"><br>Upload your notes</span>
+                                <input type="file" name="DisPlayPictureFile" class="drop-zone__input" style="display:none;" accept="image/*">
+                                @Html.ValidationMessageFor(model => model.DisplayPictureFile, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <slabel>Upload Notes *</slabel>
+                            <div class="drop-zone">
+                                <span class="drop-zone__prompt"><img src="~/img/upload-note.png"><br>Upload your notes</span>
+                                <input type="file" name="FileName" class="drop-zone__input" style="display:none;" accept=".pdf,.doc">
+                                @Html.ValidationMessageFor(model => model.FileName, "", new { @class = "text-danger" })
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label>Upload Notes *</label>
-                        <div class="drop-zone">
-                            <span class="drop-zone__prompt"><img src="~/img/upload-note.png"><br>Upload your notes</span>
-                            <input type="file" name="FileName" class="drop-zone__input" style="display:none;">
-                            @Html.ValidationMessageFor(model => model.FileName, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label>Type</label>
-                        <div>
-                            @Html.DropDownList("Type", ViewBag.type as SelectList, "Select NoteType")
-                            @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Type</label>
+                            <div>
+                                @Html.DropDownList("Type", ViewBag.type as SelectList, "Select NoteType")
+                                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Number of Pages</label>
+                            <div>
+                                @Html.EditorFor(model => model.NumberOfPages, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Number of Pages" } })
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label>Number of Pages</label>
-                        <div>
-                            @Html.EditorFor(model => model.NumberOfPages, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label>Description *</label>
-                        <div>
-                            <textarea name="Description" placeholder="Enter your description" rows=5></textarea>
-                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Description*</label>
+                            <div>
+                                <textarea name="Description" placeholder="Enter your description" rows=5></textarea>
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <section id="add-note-2">
-        <div class="container">
-            <h2>Institution Information</h2>
-            <div class="row">
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label>Country *</label>
-                        <div>
-                            @Html.DropDownList("Country", ViewBag.country as SelectList, "Select Country")
-                            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+        </section>
+        <section id="add-note-2">
+            <div class="container">
+                <h2>Institution Information</h2>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Country *</label>
+                            <div>
+                                @Html.DropDownList("Country", ViewBag.country as SelectList, "Select Country")
+                                @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label>Institution name </label>
-                        <div>
-                            @Html.EditorFor(model => model.UniversityName, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="add-note-2">
-        <div class="container">
-            <h2>Course Details</h2>
-            <div class="row">
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label>Course Name</label>
-                        <div>
-                            @Html.EditorFor(model => model.Course, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label>Course Code</label>
-                        <div>
-                            @Html.EditorFor(model => model.CourseCode, new { htmlAttributes = new { @class = "form-control" } })
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Institution name </label>
+                            <div>
+                                @Html.EditorFor(model => model.UniversityName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Institution Name" } })
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label>Professor / Lecturer</label>
-                        <div>
-                            @Html.EditorFor(model => model.Professor, new { htmlAttributes = new { @class = "form-control" } })
+        </section>
+        <section id="add-note-2">
+            <div class="container">
+                <h2>Course Details</h2>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Course Name</label>
+                            <div>
+                                @Html.EditorFor(model => model.Course, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Course Name" } })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Course Code</label>
+                            <div>
+                                @Html.EditorFor(model => model.CourseCode, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Course Code" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Professor / Lecturer</label>
+                            <div>
+                                @Html.EditorFor(model => model.Professor, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Professor Name" } })
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="add-note-2">
-        <div class="container">
-            <h2>Selling Information</h2>
-            <div class="row">
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label>Sell For *</label>
-                        <div class="radio_button" role="group">
-                            @Html.RadioButtonFor(model => model.IsPaid, 1) Paid
-                            @Html.RadioButtonFor(model => model.IsPaid, 0) Free
+        <section id="add-note-2">
+            <div class="container">
+                <h2>Selling Information</h2>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Sell For *</label>
+                            <div class="radio_button" role="group">
+                                @Html.RadioButtonFor(model => model.IsPaid, 1, new { @onclick = "removeReadOnly()" }) Paid
+                                @Html.RadioButtonFor(model => model.IsPaid, 0, new { @onclick = "setReadOnly()" }) Free
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Sell Price</label>
+                            <div>
+                                <input type="text" name="SellingPrice" class="form-control" placeholder="Enter price" id="price">
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label>Sell Price *</label>
-                        <div>
-                            @Html.EditorFor(model => model.SellingPrice, new { htmlAttributes = new { @class = "form-control" } })
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Note Preview</label>
+                            <div class="drop-zone">
+                                <span class="drop-zone__prompt"><img src="~/img/upload-file.png"><br>Upload a file</span>
+                                <input type="file" name="NotesPreviewFile" class="drop-zone__input" style="display:none;" accept=".pdf,.doc">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label>Note Preview</label>
-                        <div class="drop-zone">
-                            <span class="drop-zone__prompt"><img src="~/img/upload-file.png"><br>Upload a file</span>
-                            <input type="file" name="NotesPreviewFile" class="drop-zone__input" style="display:none;">
-                        </div>
+            </div>
+        </section>
+        <section id="add-note-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <button name="Button" id="button" class="submit" value="6">SAVE</button>
+                        <button name="Button" id="button" class="submit" value="7" onclick="return confirm('Publishing this note will send note to administrator for review, once administrator review and approve then this note will be published to portal. Press yes to continue');">PUBLISH</button>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <section id="add-note-2">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <button name="Button" id="button" class="submit" value="save">SAVE</button>
-                    <button name="Button" id="button" class="submit" value="publish">PUBLISH</button>
-
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
+        </section>
+    </div>
+    <script type="text/javascript">
+        function setReadOnly() {
+            document.getElementById("price").readOnly = true;
+        }
+        function removeReadOnly() {
+            document.getElementById("price").readOnly = false;
+        }
+        removeReadOnly()
+    </script>
 }
 

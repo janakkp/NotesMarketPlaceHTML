@@ -8,7 +8,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9D828DE8-5DB5-4583-BB54-CED0E9D77A3E}</ProjectGuid>
+    <ProjectGuid>{9A93D683-5E9D-4FA2-94E7-E13A5CD669EF}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -18,7 +18,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44326</IISExpressSSLPort>
+    <IISExpressSSLPort>44381</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -132,7 +132,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Country.cs">
       <DependentUpon>NotesMarketPlace.tt</DependentUpon>
@@ -145,12 +144,19 @@
     </Compile>
     <Compile Include="Models\Addnote.cs" />
     <Compile Include="Models\Buyerrequest.cs" />
-    <Compile Include="Models\contactus.cs" />
+    <Compile Include="Models\Changepassword.cs" />
+    <Compile Include="Models\ContactUs.cs" />
     <Compile Include="Models\Dashboard.cs" />
+    <Compile Include="Models\Editnote.cs" />
     <Compile Include="Models\ForgotPassword.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\Mydownloads.cs" />
     <Compile Include="Models\Notedetail.cs" />
+    <Compile Include="Models\Rejectednote.cs" />
+    <Compile Include="Models\Searchnote.cs" />
     <Compile Include="Models\Signup.cs" />
+    <Compile Include="Models\Soldnote.cs" />
+    <Compile Include="Models\Userprofile.cs" />
     <Compile Include="NoteCategory.cs">
       <DependentUpon>NotesMarketPlace.tt</DependentUpon>
     </Compile>
@@ -170,6 +176,9 @@
       <DependentUpon>NotesMarketPlace.edmx</DependentUpon>
     </Compile>
     <Compile Include="NoteType.cs">
+      <DependentUpon>NotesMarketPlace.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Paid.cs">
       <DependentUpon>NotesMarketPlace.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -202,32 +211,26 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\header.css" />
+    <Content Include="Content\jquery.rateyo.css" />
+    <Content Include="Content\jquery.rateyo.min.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\responsive-tabs.css" />
     <Content Include="Content\responsive.css" />
     <Content Include="Content\stickyheader.css" />
     <Content Include="Content\style.css" />
     <Content Include="email\addnote.html" />
+    <Content Include="email\allowdownload.html" />
     <Content Include="email\contactus.html" />
     <Content Include="email\Forgotpassword.htm" />
     <Content Include="email\mailnotedetail.html" />
+    <Content Include="email\reportmail.html" />
     <Content Include="email\verificationemail.htm" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="img\sample.pdf" />
-    <EntityDeploy Include="NotesMarketPlace.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>NotesMarketPlace.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="NotesMarketPlace.edmx.diagram">
-      <DependentUpon>NotesMarketPlace.edmx</DependentUpon>
-    </Content>
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="img\arrow-down.png" />
     <Content Include="img\arrow-down.svg" />
     <Content Include="img\banner-overlay.jpg" />
@@ -308,11 +311,23 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\header.js" />
     <Content Include="Scripts\jquery.js" />
+    <EntityDeploy Include="NotesMarketPlace.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>NotesMarketPlace.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="NotesMarketPlace.edmx.diagram">
+      <DependentUpon>NotesMarketPlace.edmx</DependentUpon>
+    </Content>
+    <Content Include="img\sample.pdf" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\jquery.rateyo.js" />
+    <Content Include="Scripts\jquery.rateyo.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\PagedList.css" />
     <Content Include="Scripts\script.js" />
     <Content Include="Scripts\stickyheader.js" />
     <Content Include="Web.config" />
@@ -326,25 +341,41 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\nonRegisteredUser.cshtml" />
+    <Content Include="Views\Shared\Registered.cshtml" />
+    <Content Include="Views\Shared\HomeLayout.cshtml" />
+    <Content Include="Views\Shared\Admin.cshtml" />
+    <Content Include="Views\User\Home.cshtml" />
     <Content Include="Views\User\Signup.cshtml" />
     <Content Include="Views\User\emailverification.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
-    <Content Include="Views\User\Forgotpassword.cshtml" />
     <Content Include="Views\User\Activation.cshtml" />
-    <Content Include="Views\User\Dashboard.cshtml" />
-    <Content Include="Views\User\Addnote.cshtml" />
-    <Content Include="Views\User\BuyerRequest.cshtml" />
-    <Content Include="Views\User\Faqs.cshtml" />
-    <Content Include="Views\User\Contactus.cshtml" />
+    <Content Include="Views\User\Forgotpassword.cshtml" />
     <Content Include="Views\User\Notedetail.cshtml" />
-    <Content Include="Views\User\mailnotedetail.cshtml" />
-    <Content Include="Views\Admin\Dashboard.cshtml" />
+    <Content Include="Views\User\BuyerRequest.cshtml" />
+    <Content Include="Views\User\Searchnote.cshtml" />
+    <Content Include="Views\User\SoldNote.cshtml" />
+    <Content Include="Views\User\RejectedNote.cshtml" />
+    <Content Include="Views\User\Mydownloads.cshtml" />
+    <Content Include="Views\User\UserProfile.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
+    <Content Include="Views\User\Contactus.cshtml" />
+    <Content Include="Views\User\Faqs.cshtml" />
+    <Content Include="Views\User\EditProfile.cshtml" />
+    <Content Include="Views\User\Editnote.cshtml" />
+    <Content Include="Views\User\Dashboard.cshtml" />
+    <Content Include="Views\User\publishednote.cshtml" />
+    <Content Include="Views\User\Inprocessnote.cshtml" />
+    <Content Include="Views\User\reportinsearch.cshtml" />
+    <Content Include="Views\User\ratinginsearch.cshtml" />
+    <Content Include="Views\User\Addnote.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="UserFile\DisplayPictureName\" />
     <Folder Include="UserFile\FileName\" />
     <Folder Include="UserFile\NotesPreview\" />
+    <Folder Include="UserFile\UserProfile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -372,9 +403,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>63498</DevelopmentServerPort>
+          <DevelopmentServerPort>55120</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44326/</IISUrl>
+          <IISUrl>https://localhost:44381/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

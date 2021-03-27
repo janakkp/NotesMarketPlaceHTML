@@ -50,13 +50,13 @@ ul.navbar-nav >li >a >img{
 }
 ul.navbar-nav >li  #logout{
     font-family: "Raleway", sans-serif;
-    font-size: 13px;
-    font-weight: 400;
+    font-size: 14px;
+    font-weight: 600;
     background-color: #6255a5;
     color: #fff;
     border: none;
-    height: 30px;
-    padding: 0px 10px;
+    height: 35px;
+    padding: 0px 14px;
     text-align: center;
     margin-top: -5px;
 }

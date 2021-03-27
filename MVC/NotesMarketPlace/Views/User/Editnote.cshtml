@@ -1,0 +1,247 @@
+﻿@model NotesMarketPlace.Models.Editnote
+
+@{
+    ViewBag.Title = "Editnote";
+    Layout = "~/Views/Shared/Registered.cshtml";
+}
+
+
+@using (Html.BeginForm("Editnote", "User", FormMethod.Post, new
+{
+    enctype = "multipart/form-data"
+}))
+{
+    @Html.AntiForgeryToken()
+
+<div id="add-note">
+    <section id="banner">
+        <div id="banner-heading">
+            <h1>Add Notes</h1>
+        </div>
+    </section>
+    @if (ViewBag.error != null)
+    {
+        <script type="text/javascript">
+                         window.onload = function () {
+                                alert("@ViewBag.error");
+                            };
+        </script>
+    }
+    <section id="add-note-1">
+        <div class="container">
+            <h2>Basic Note Details</h2>
+            <input type="hidden" name="noteid" value="@ViewBag.Noteid" class="form-control">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Title*</label>
+                        <div>
+                            <input type="text" name="Title" value="@ViewBag.notetitle" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Category *</label>
+                        @Html.DropDownList("Category", ViewBag.category as SelectList, ViewBag.selectedcategory as string)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Display Picture*</label>
+                        <div class="drop-zone">
+                            @if (ViewBag.DisplayPictureFile != "")
+                            {
+                                <span class="drop-zone__prompt"><img src="~/UserFile/DisplayPictureName/@ViewBag.DisplayPictureFile"><br>@ViewBag.DisplayPictureFile</span>
+                            }
+                            else
+                            {
+                                <span class="drop-zone__prompt"><img src="~/img/upload-note.png"><br>Upload your notes</span>
+                            }
+                            <input type="file" name="DisPlayPictureFile" class="drop-zone__input" style="display:none;" accept="image/*">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <slabel>Upload Notes *</slabel>
+                        <div class="drop-zone">
+                            @if (ViewBag.FileName != "")
+                            {
+                                <span class="drop-zone__prompt"><img src="~/img/search3.png"><br>@ViewBag.FileName</span>
+                            }
+                            else
+                            {
+                                <span class="drop-zone__prompt"><img src="~/img/upload-note.png"><br>Upload your notes</span>
+                            }
+                            <input type="file" name="FileName" class="drop-zone__input" style="display:none;" accept=".pdf,.doc">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Type</label>
+                        <div>
+                            @Html.DropDownList("Type", ViewBag.type as SelectList, ViewBag.selectedtype as string)
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Number of Pages</label>
+                        <div>
+                            <input type="text" class="form-control" value="@ViewBag.NumberOfPages" name="NumberOfPages">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Description *</label>
+                        <div>
+                            <textarea name="Description" value="@ViewBag.Description" placeholder="@ViewBag.Description" rows=5></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="add-note-2">
+        <div class="container">
+            <h2>Institution Information</h2>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Country *</label>
+                        <div>
+                            @Html.DropDownList("Country", ViewBag.country as SelectList, ViewBag.selectedcountry as string)
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Institution name </label>
+                        <div>
+                            <input type="text" name="UniversityName" class="form-control" value="@ViewBag.UniversityName">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="add-note-2">
+        <div class="container">
+            <h2>Course Details</h2>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Course Name</label>
+                        <div>
+                            <input type="text" name="Course" class="form-control" value="@ViewBag.Course">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Course Code</label>
+                        <div>
+                            <input type="text" name="CourseCode" class="form-control" value="@ViewBag.CourseCode">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Professor / Lecturer</label>
+                        <div>
+                            <input type="text" name="Professor" class="form-control" value="@ViewBag.Professor">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="add-note-2">
+        <div class="container">
+            <h2>Selling Information</h2>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Sell For *</label>
+                        <div class="radio_button" role="group">
+                            @if (ViewBag.Ispaid == 1)
+                            {
+                                @Html.RadioButtonFor(model => model.IsPaid, 1, new { @onclick = "removeReadOnly()", @checked = true })
+                            }
+                            else
+                            {
+                                @Html.RadioButtonFor(model => model.IsPaid, 1, new { @onclick = "removeReadOnly()" })
+                            } Paid
+                            @if (ViewBag.Ispaid == 0)
+                            {
+                                @Html.RadioButtonFor(model => model.IsPaid, 0, new { @onclick = "setReadOnly()", @checked = true })
+                            }
+                            else
+                            {
+                                @Html.RadioButtonFor(model => model.IsPaid, 0, new { @onclick = "setReadOnly()" })
+                            } Free
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Sell Price</label>
+                        <div>
+                            <input type="text" name="SellingPrice" class="form-control" value="@ViewBag.SellingPrice" id="price">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Note Preview</label>
+                        <div class="drop-zone">
+                            @if (ViewBag.NotesPreviewFile != "")
+                            {
+                                <span class="drop-zone__prompt"><img src="~/img/search3.png"><br>@ViewBag.NotesPreviewFile</span>
+                            }
+                            else
+                            {
+                                <span class="drop-zone__prompt"><img src="~/img/upload-note.png"><br>Upload your notes</span>
+                            }
+                            <input type="file" name="NotesPreviewFile" class="drop-zone__input" style="display:none;" accept=".pdf,.doc">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="add-note-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <button name="Button" id="button" class="submit" value="6">SAVE</button>
+                    <button name="Button" id="button" class="submit" value="7" onclick="return confirm('Publishing this note will send note to administrator for review, once administrator review and approve then this note will be published to portal. Press yes to continue');">PUBLISH</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+    <script type="text/javascript">
+        function setReadOnly() {
+            document.getElementById("price").readOnly = true;
+        }
+        function removeReadOnly() {
+            document.getElementById("price").readOnly = false;
+        }
+    </script>
+}

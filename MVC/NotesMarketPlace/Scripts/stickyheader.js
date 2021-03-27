@@ -18,8 +18,8 @@ $(function(){
             $("nav").addClass("white-nav-top");
             
             // Show dark logo
-            $(".navbar-brand img").attr("src", "img/logo.png");
-			$(".sample").attr("src", "img/logo.png");
+            $('.navbar-brand img').attr('src','~/img/logo.png');
+            $('.sample').attr('src','~/img/logo.png');
             
             // Show back to top button
             $("#back-to-top").fadeIn();
@@ -27,10 +27,13 @@ $(function(){
             
             // Hide white nav
             $("nav").removeClass("white-nav-top");
+
+
+
             
             // Show logo
-            $(".navbar-brand img").attr("src", "img/top-logo.png");
-			$(".sample").attr("src", "img/top-logo.png");
+            $('.navbar-brand img').attr('src','~/img/top-logo.png');
+            $('.sample').attr('src','~/img/top-logo.png');
             // Hide back to top button
             $("#back-to-top").fadeOut();
         }

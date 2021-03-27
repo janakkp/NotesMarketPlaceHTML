@@ -11,7 +11,7 @@ namespace NotesMarketPlace
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class UserProfile
     {
         public int ID { get; set; }

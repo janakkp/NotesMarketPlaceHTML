@@ -65,6 +65,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Paids">
+      <EntityTypeMapping TypeName="NotesMarketPlaceModel.Paid">
+        <MappingFragment StoreEntitySet="Paid">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="PaidType" ColumnName="PaidType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ReferenceDatas">
       <EntityTypeMapping TypeName="NotesMarketPlaceModel.ReferenceData">
         <MappingFragment StoreEntitySet="ReferenceData">

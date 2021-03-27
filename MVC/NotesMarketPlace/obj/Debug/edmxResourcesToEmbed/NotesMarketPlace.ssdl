@@ -60,6 +60,13 @@
     <Property Name="ModifiedBy" Type="int" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
   </EntityType>
+  <EntityType Name="Paid">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="PaidType" Type="varchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="ReferenceData">
     <Key>
       <PropertyRef Name="ID" />
@@ -438,6 +445,7 @@
     <EntitySet Name="Downloads" EntityType="Self.Downloads" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NoteCategories" EntityType="Self.NoteCategories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NoteTypes" EntityType="Self.NoteTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Paid" EntityType="Self.Paid" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ReferenceData" EntityType="Self.ReferenceData" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SellerNotes" EntityType="Self.SellerNotes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SellerNotesAttachements" EntityType="Self.SellerNotesAttachements" Schema="dbo" store:Type="Tables" />

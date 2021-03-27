@@ -23,24 +23,32 @@
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 @Styles.Render("~/Content/css")
 </head>
+<style>
+    .link, .link:hover, .link:active {
+        color: white;
+        text-decoration:none;
+    }
+    
+</style>
 <body style="background-color: black">
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/login.js"></script>
-
-    <form id="email-verification">
-        <div>
-            <img src="~/img/logo.png">
-        </div>
-        <div>
-            <h1>Email Verification</h1>
-            <h5>@ViewBag.name</h5>,
-            <p>
-                Thanks for Signing up!<br>
-                Simply clickk below for email verification.
-            </p>
-            <button type="submit" class="btn btn-primary">@Html.ActionLink("VERIFY EMAIL ADDRESS", "Login")</button>
-        </div>
+   <form id = "email-verification">
+    <div>
+        <img src="~/img/logo.png">
+    </div>
+    <div>
+        <h1>Email Verification</h1><br>
+        <h5>@ViewBag.name,</h5>
+        <p>
+            Thanks for Signing up!<br>
+            Please verify the email address via clicking on the link we sent you via email.
+        </p>
+        <button type="submit" class="btn btn-primary">
+            <a href="@Url.Action("Login","User")" class="link">VERIFY EMAIL ADDRESS</a>
+        </button>
+    </div>
     </form>
 </body>
 

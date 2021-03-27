@@ -29,6 +29,7 @@ namespace NotesMarketPlace
         public DbSet<Download> Downloads { get; set; }
         public DbSet<NoteCategory> NoteCategories { get; set; }
         public DbSet<NoteType> NoteTypes { get; set; }
+        public DbSet<Paid> Paids { get; set; }
         public DbSet<ReferenceData> ReferenceDatas { get; set; }
         public DbSet<SellerNote> SellerNotes { get; set; }
         public DbSet<SellerNotesAttachement> SellerNotesAttachements { get; set; }

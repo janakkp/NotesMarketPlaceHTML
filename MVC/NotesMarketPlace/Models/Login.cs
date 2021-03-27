@@ -9,13 +9,16 @@ namespace NotesMarketPlace.Models
 {
     public class Login
     {
-        [DataType(DataType.EmailAddress, ErrorMessage = "E-mail is not valid")]
-        [Required(ErrorMessage = "Email address name required")]
+        [DataType(DataType.EmailAddress)]
+        [RegularExpression(@"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", ErrorMessage = "E-mail is not valid")]
+        [Required]
         public string EmailID { get; set; }
 
 
         [DataType(DataType.Password)]
-        [Required(ErrorMessage = "Password is required")]
+        [RegularExpression(@"^[0-9a-zA-Z!@#$%^&*0-9]{8,}$", ErrorMessage = "Enter valid Password")]
+        [Required]
         public string Password { get; set; }
+
     }
 }

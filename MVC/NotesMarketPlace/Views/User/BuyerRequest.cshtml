@@ -1,18 +1,11 @@
-﻿@model NotesMarketPlace.Models.Buyerrequest
+﻿@model PagedList.IPagedList<NotesMarketPlace.Models.Buyerrequest>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "BuyerRequest";
+    Layout = "~/Views/Shared/Registered.cshtml";
 }
-
-<h2>BuyerRequest</h2>
-
-
-@using (Html.BeginForm("BuyerRequest", "User", FormMethod.Post, new
-{
-    enctype = "multipart/form-data"
-}))
-{
-    @Html.AntiForgeryToken()
 
 <section id="buyer-request">
     <div class="container">
@@ -21,69 +14,90 @@
                 <h2>Buyer Requests</h2>
             </div>
             <div class="col-md-5 col-sm-6 col-xs-12 search">
-                @Html.TextBox("Searching1", null, new { htmlAttributes = new { @class = "mainLoginInput" } })
-                <button id="submit" type="submit">SEARCH</button>
+                @using (Html.BeginForm("BuyerRequest", "User", FormMethod.Get))
+                {
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { htmlAttributes = new { @class = "mainLoginInput" } })
+                    <button id="submit" type="submit">SEARCH</button>
+                }
             </div>
         </div>
         <div style="overflow-x:auto;">
-            <table>
+            <table class="table">
                 <tr>
-                    <th style="text-align: center;">SR NO.</th>
-                    <th>NOTE TITLE</th>
-                    <th>CATEGORY</th>
-                    <th>BUYER</th>
-                    <th>SELL TYPE</th>
-                    <th>PRICE</th>
-                    <th>DOWNLOADED DATE/TIME</th>
+                    <th style="text-align: center;"><a>SR NO.</a></th>
+                    <th>
+                        @Html.ActionLink("NOTE TITLE", "BuyerRequest", new { sortOrder = ViewBag.title, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("CATEGORY", "BuyerRequest", new { sortOrder = ViewBag.category, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("EmailID", "BuyerRequest", new { sortOrder = ViewBag.email, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("SELL TYPE", "BuyerRequest", new { sortOrder = ViewBag.selltype, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("PRICE", "BuyerRequest", new { sortOrder = ViewBag.price, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("DOWNLOADED DATE/TIME", "BuyerRequest", new { sortOrder = ViewBag.date, currentFilter = ViewBag.CurrentFilter })
+                    </th>
                     <th></th>
                     <th></th>
-                </tr>
-                @foreach (var data in ViewBag.process1 as IEnumerable<NotesMarketPlace.Models.Buyerrequest>)
-                {
-                    <tr>
-                        <td></td>
-                        <td>@data.downloadnotelist.NoteTitle</td>
-                        <td>@data.downloadnotelist.NoteCategory</td>
-                        <td>@data.userlist.EmailID</td>
-                        <td>@data.downloadnotelist.IsPaid</td>
-                        <td>@data.downloadnotelist.PurchasedPrice</td>
-                        <td>@data.downloadnotelist.AttachmentDownloadedDate</td>
-                        <td style="text-align: center;"><img src="~/img/eye.png" onclick="location.href='@Url.Action("Notedetail", "User", new { id = data.downloadnotelist.NoteID })'" /></td>
-                        <td style="text-align: center;">
-                            <div class="dropdown">
-                                <button class="dropbtn"><img src="~/img/dots.png"></button>
-                                <div class="dropdown-content">
-                                    <a href="@Url.Action("Allowdownload","User",new {id = data.downloadnotelist.NoteID })">Allow Download</a>
-                                </div>
-                            </div>
-                        </td>
 
-                    </tr>
+                </tr>
+                @{
+                    int a = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="text-align: center;">
+                                @a
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.downloadnotelist.NoteTitle)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.downloadnotelist.NoteCategory)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.userlist.EmailID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.paidlist.PaidType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.downloadnotelist.PurchasedPrice)
+                            </td>
+                            @if (item.downloadnotelist.AttachmentDownloadedDate != null)
+                            {
+                                <td> @Html.DisplayFor(modelItem => item.downloadnotelist.AttachmentDownloadedDate)</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                            <td style="text-align: center;"><img src="~/img/eye.png" onclick="location.href='@Url.Action("Notedetail", "User", new { id = item.downloadnotelist.NoteID })'" /></td>
+                            <td style="text-align: center;">
+                                <div class="dropdown">
+                                    <button class="dropbtn"><img src="~/img/dots.png"></button>
+                                    <div class="dropdown-content">
+                                        <a href="@Url.Action("allowdownload", "User", new { id = item.downloadnotelist.NoteID })">Allow Download</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        a = a + 1;
+                    }
                 }
             </table>
-            @{
-                double totalpages = ViewBag.TotalPages;
-                for (int i = 1; i <= totalpages; i++)
-                {
-                    <ul class="pagination">
-                        @if (i == ViewBag.PageNumber)
-                        {
-                            <li class="active">
-                                @Html.ActionLink(i.ToString(), "BuyerRequest", new { PageNumber = i })
-                            </li>
-                        }
-                        else
-                        {
-                            <li>
-                                @Html.ActionLink(i.ToString(), "BuyerRequest", new { PageNumber = i })
-                            </li>
-                        }
-                    </ul>
-                }
-            }
+            <br />
+            <div style="text-align:center; ">
+
+                @Html.PagedListPager(Model, page => Url.Action("BuyerRequest",
+                    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+            </div>
+            </div>
         </div>
-    </div>
 </section>
-
-
-}

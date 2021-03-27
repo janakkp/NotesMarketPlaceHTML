@@ -4,6 +4,7 @@
     Layout = null;
 }
 
+
 <!DOCTYPE html>
 
 <html>
@@ -26,10 +27,6 @@
     .error {
         color: red;
     }
-
-    .success {
-        color: green;
-    }
 </style>
 </head>
 <body>
@@ -49,7 +46,7 @@
                 <div class="form-group">
                     <label>Email</label>
                     <div>
-                        @Html.EditorFor(model => model.EmailID, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.EmailID, new { htmlAttributes = new { @class = "form-control", @placeholder = "EmailID" } })
                         @Html.ValidationMessageFor(model => model.EmailID, "", new { @class = "error" })
                     </div>
                 </div>
@@ -59,9 +56,9 @@
                         <a href="#">@Html.ActionLink("Forgot Password?", "Forgotpassword")</a>
                     </div>
                     <div>
-                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @id = "password", @type = "password" } })
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @id = "password", @type = "password", @placeholder = "Password" } })
                         @Html.ValidationMessageFor(model => model.Password, "", new { @class = "error" })
-                        <span toggle="#password-field"  class="fa fa-fw field-icon toggle-password" onclick="password()"><img src="~/img/eye.png" /></span>
+                        <span toggle="#password-field" class="fa fa-fw field-icon toggle-password" onclick="password()"><img src="~/img/eye.png" style="margin-left:-15px;" /></span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -73,7 +70,9 @@
         </form>
     </div>
     @Scripts.Render("~/bundles/bootstrap")
+    @if (TempData["Forgotpassword"] != null)
+    {
+        <script>alert('@TempData["Forgotpassword"]');</script>
+    }
 </body>
 </html>
-
-

@@ -11,6 +11,8 @@ namespace NotesMarketPlace.Models
 
         public User userlist { get; set; }
 
+        public UserProfile userprofilelist { get; set; }
+
         public NoteCategory categorylist { get; set; }
 
         public NoteType typelist { get; set; }
