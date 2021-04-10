@@ -1,0 +1,920 @@
+/* =========================================
+                Html, Body
+============================================ */
+
+html,
+body {
+	height: 100%;
+	position: relative;
+	margin: 0;
+}
+
+body {
+	color: #212226;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: "Raleway", sans-serif;
+}
+
+p {
+	font-family: "Open Sans", sans-serif;
+	font-size: 13px;
+	font-weight: 400;
+	line-height: 24px;
+}
+
+#header {
+	height: 70px;
+}
+
+section {
+	background: #fff;
+	overflow: hidden;
+}
+
+h1 {
+	font-family: "Open Sans", sans-serif;
+	font-size: 26px;
+	font-weight: 600;
+	padding: 0;
+	margin: 0;
+	color: #6255a5;
+}
+
+h3 {
+	font-family: "Open Sans", sans-serif;
+	font-size: 20px;
+	font-weight: 600;
+	padding: 0;
+	margin: 0;
+	color: #6255a5;
+}
+
+h5 {
+	font-family: "Open Sans", sans-serif;
+	font-size: 17px;
+	font-weight: 400;
+	padding: 0;
+	margin: 0;
+}
+
+/*=========================
+            table
+=========================*/
+table {
+
+	border-collapse: collapse;
+	border-spacing: 0;
+	border: 1px solid #ddd;
+	font-weight: 400px;
+	margin-top: 20px;
+	font-size: 14px;
+	width: 100%;
+}
+
+table tr {
+	border: 1px solid lightgray;
+}
+
+table td,
+th {
+	font-family: "Open Sans", sans-serif;
+	padding: 15px 10px;
+	margin: 0px 10px;
+	font-size: 14px;
+}
+
+table th {
+	font-size: 13px;
+}
+
+table i {
+	font-size: 20px;
+	color: #D3D3D3;
+}
+
+table #color {
+	color: #6255a5;
+}
+
+/*=================================================
+                DROP DOWN
+=================================================*/
+table .dropbtn {
+	background-color: inherit;
+	color: black;
+	font-weight: 700;
+	font-size: 16px;
+	border: none;
+	cursor: pointer;
+}
+
+table .dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #fff;
+	min-width: 160px;
+	margin-left: -160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+table .dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+table .dropdown-content a:hover {
+	background-color: #f1f1f1
+}
+
+table .dropdown:hover .dropdown-content {
+	display: block;
+}
+/*============================================
+                  DRAG AND DROP
+============================================*/
+.drop-zone {
+	width: 100%;
+	height: 100px;
+	padding: 25px;
+	display: flex;
+	font-family: "Open Sans", sans-serif;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	font-weight: 600;
+	font-size: 20px;
+	cursor: pointer;
+	color: #D3D3D3;
+	border: 1px SOLID #D3D3D3;
+	border-radius: 3px;
+}
+
+.drop-zone img {
+	width: 40px;
+	height: 40px;
+}
+
+.drop-zone--over {
+	border-style: solid;
+}
+
+.drop-zone__thumb {
+	width: 20%;
+	height: 100%;
+	border-radius: 10px;
+	overflow: hidden;
+	background-color: #cccccc;
+	background-size: cover;
+	position: relative;
+}
+
+.drop-zone__thumb::after {
+	content: attr(data-label);
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	padding: 5px 0;
+	color: #ffffff;
+	background: rgba(0, 0, 0, 0.75);
+	font-size: 14px;
+	text-align: center;
+}
+
+/*=======================================
+		manage-system-configuration
+========================================*/
+#manage-configuration {
+	padding-top: 90px;
+	margin-bottom: 30px;
+}
+
+#manage-configuration h1 {
+	font-size: 20px;
+}
+
+.form-group {
+	padding: 0;
+	margin: 0;
+	margin-top: 20px;
+	width: 100%;
+
+}
+
+.form-group label {
+	font-family: "Open Sans", sans-serif;
+	margin: 0;
+	font-size: 14px;
+	font-weight: 400;
+}
+
+.form-group form-control {
+	font-family: "Open Sans", sans-serif;
+	margin: 0;
+	font-size: 16px;
+	width: 100%;
+	height: 40px;
+	font-weight: 400;
+}
+
+button {
+	font-family: "Open Sans", sans-serif;
+	height: 40px;
+	padding: 0 20px;
+	background-color: #6255a5;
+	color: #fff;
+	font-size: 17px;
+	font-weight: 600;
+	border: none;
+}
+
+#approve {
+	background-color: green;
+	width:80px;
+	height:30px;
+	font-size: 15px;
+	padding: 0;
+}
+
+#reject {
+	background-color: red;
+	width:80px;
+	height:30px;
+	font-size: 15px;
+	padding: 0;
+}
+
+#inreview {
+	background-color: #D3D3D3;
+	width:80px;
+	height:30px;
+	font-size: 15px;
+	padding: 0;
+}
+
+#my-profile,
+#add-type,
+#add-country,
+#add-category,
+#add-addministration,
+#add-category {
+	padding-top: 90px;
+	margin-bottom: 30px;
+}
+
+/*====================================================================
+	REJECTED NOTES   PUBLISHED NOTES           NOTES-UNDER-REVIEW
+====================================================================*/
+
+#rejected-notes,
+#published-notes,
+#notes-under-review {
+	padding-top: 90px;
+
+}
+
+#rejected-notes h1,
+#published-notes h1,
+#notes-under-review h1 {
+	margin-bottom: 15px;
+}
+
+#rejected-notes .form-group,
+#published-notes .form-group,
+#notes-under-review .form-group {
+	margin: 1px;
+	padding: 0;
+}
+
+#rejected-notes select,
+#published-notes select,
+#notes-under-review select {
+	font-family: "Open Sans", sans-serif;
+	margin: 0;
+	font-size: 16px;
+	height: 40px;
+	font-weight: 400;
+	height: 40px;
+	padding: 0;
+	border: 1px solid #D3D3D3;
+}
+
+#rejected-notes .search,
+#published-notes .search,
+#notes-under-review .search {
+	margin-top: 15px;
+}
+
+.search input {
+	font-family: "Open Sans", sans-serif;
+	margin: 0;
+	font-size: 17px;
+	height: 40px;
+	font-weight: 400;
+	height: 40px;
+	width: 72%;
+	margin: 1px;
+	border: 1px solid #D3D3D3;
+}
+
+.search button {
+	font-family: "Open Sans", sans-serif;
+	height: 40px;
+	padding: 0;
+	background-color: #6255a5;
+	color: #fff;
+	font-size: 17px;
+	font-weight: 600;
+	border: none;
+	width: 25%;
+}
+
+#rejected-notes table,
+#published-notes table,
+#notes-under-review table {
+	margin-bottom: 20px;
+}
+
+.mainLoginInput::-webkit-input-placeholder {
+	font-family: FontAwesome;
+	font-weight: 300;
+	overflow: visible;
+	vertical-align: top;
+	display: inline-block !important;
+	padding-left: 5px;
+	padding-top: 2px;
+	color: #D3D3D3;
+}
+
+/*=========================================
+			MEMBERS  /  SPAM-REPORT
+=========================================*/
+#members,
+#spam-report {
+	padding-top: 90px;
+}
+
+#members h1,
+#spam-report h1 {
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+/*=========================================
+			MANAGE-TYPE
+=========================================*/
+#manage-type,
+#manage-country,
+#manage-administration,
+#manage-category {
+	padding-top: 90px;
+}
+
+#manage-type h1,
+#manage-country h1,
+#manage-administration h1,
+#manage-category h1 {
+	margin-bottom: 15px;
+}
+
+/*=========================================
+			Download-notes
+=========================================*/
+#download-notes {
+	padding-top: 90px;
+}
+
+#download-notes h1 {
+	margin-bottom: 15px;
+}
+
+#download-notes label {
+	font-family: "Open Sans", sans-serif;
+	margin: 0;
+	font-size: 14px;
+	font-weight: 400;
+}
+
+#download-notes select {
+	font-family: "Open Sans", sans-serif;
+	margin: 0;
+	font-size: 16px;
+	height: 40px;
+	font-weight: 400;
+	width: 100%;
+	height: 40px;
+	padding: 0;
+	border: 1px solid #D3D3D3;
+}
+
+#download-notes .search {
+	margin-top: 15px;
+}
+
+/*==================================================
+                Notes-detail
+==================================================*/
+#note-detail {
+	padding-top: 80px;
+}
+
+#note-detail-1 {
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #D3D3D3;
+}
+
+#note-detail-1 h2 {
+	color: #6255a5;
+}
+
+#note-detail-1 h3 {
+	margin-bottom: 10px;
+}
+
+#note-detail-1 h2 {
+	margin: 0;
+}
+
+#note-detail-1 h4 {
+	font-family: "Open Sans", sans-serif;
+	margin: 0;
+	font-size: 17px;
+	font-weight: 500;
+	color: #6255a5;
+}
+
+#note-detail-1 p {
+	font-family: "Open Sans", sans-serif;
+	margin: 15px 0;
+	font-size: 15px;
+	font-weight: 500;
+	color: #111;
+}
+
+#note-detail-1 button {
+	width: 200px;
+	margin-top: 20px;
+}
+#note-detail-1 #left{
+	padding: 0;
+}
+#note-detail-1 .image {
+	padding: 0;
+}
+#note-detail-1 img {
+	width: 180px;
+	height: 230px
+}
+
+#note-detail-1 .left {
+	font-family: "Open Sans", sans-serif;
+	font-size: 15px;
+	margin-bottom: 4px;
+	color: #111;
+	font-weight: 400;
+}
+
+#note-detail-1 .right {
+	font-family: "Open Sans", sans-serif;
+	font-size: 15px;
+	margin-bottom: 4px;
+	color: #6255a5;
+	font-weight: 400;
+	text-align: right;
+}
+
+#note-detail-1 .red {
+	color: red;
+	margin: 0;
+}
+
+#note-detail-2 {
+	margin-bottom: 40px;
+}
+
+#note-detail-2 h3 {
+	margin-bottom: 15px;
+}
+
+#note-detail-2 iframe {
+	width: 100%;
+	height: 410px;
+}
+
+#note-detail-2 #customers {
+	border: 1px solid #D3D3D3;
+	padding: 20px;
+}
+
+#note-detail-2 .image {
+	text-align: right;
+}
+
+#note-detail-2 img {
+	margin-top: 10px;
+	width: 50px;
+	height: 50px;
+}
+
+#note-detail-2 h4 {
+	font-size: 17px;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+#note-detail-2 p {
+	font-size: 15px;
+}
+
+#note-detail-2 .border-bottom {
+	border-bottom: 1px solid #D3D3D3;
+	margin-bottom: 10px;
+}
+
+/*==================================================
+                member-detail
+==================================================*/
+#member-detail {
+	padding-top: 80px;
+}
+
+#member-detail h1 {
+	margin-bottom: 20px;
+}
+
+#member-detail h3 {
+	margin-top: 20px;
+}
+
+#member-detail .member-img {
+	width: 100px;
+	height: 130px;
+}
+
+#member-detail .border-right {
+	border-right: 1px solid #D3D3D3;
+}
+
+#member-detail .border-bottom,
+#note-detail .border-bottom,
+#note-detail #customers .border-bottom {
+	border-bottom: 1px solid #D3D3D3;
+}
+
+#member-detail .row,
+#note-detail .row {
+	padding: 0;
+	margin: 0;
+}
+
+#member-detail .col-md-1,
+#member-detail .col-md-11,
+#member-detail .col-sm-12 {
+	padding: 0;
+	margin: 0;
+	padding-bottom: 20px;
+}
+
+#member-detail .col-md-6 {
+	padding-left: 25px;
+}
+
+#member-detail .col-md-8,
+#note-detail #right .right {
+	font-family: "Open Sans", sans-serif;
+	font-size: 14px;
+	color: #6255a5;
+	padding: 0 0 10px 0;
+}
+
+#member-detail .col-md-4,
+#note-detail #right .left {
+	font-family: "Open Sans", sans-serif;
+	font-size: 14px;
+	color: #111;
+	padding: 0 0 10px 0;
+}
+
+/*==================================================
+                DASHBOARD
+==================================================*/
+#dashboard {
+	margin-top: 70px;
+}
+
+#dashboard h1 {
+	font-family: "Open Sans", sans-serif;
+	margin: 20px 0 10px 0;
+	font-size: 25px;
+	font-weight: 600;
+}
+
+#dashboard .box {
+	font-family: "Open Sans", sans-serif;
+	margin-top: 10px;
+}
+
+#dashboard .box h3 {
+	font-family: "Open Sans", sans-serif;
+	font-size: 25px;
+	font-weight: 600;
+	margin-bottom: 5px;
+}
+
+#dashboard .box h5 {
+	font-family: "Open Sans", sans-serif;
+	font-size: 17px;
+	line-height: 17px;
+	font-weight: 400;
+	margin: 0;
+}
+
+#dashboard .box1,
+#dashboard .box2,
+#dashboard .box3 {
+	height: 140px;
+	padding: 35px 0;
+	border: 1px solid #D3D3D3;
+	text-align: center;
+}
+
+#dashboard #table {
+	margin-top: 30px;
+}
+
+#table h3 {
+	margin-top: 15px;
+	font-size: 20px;
+}
+
+#table h5 {}
+
+#table .search-input {
+	text-align: right;
+	padding-right: 0;
+}
+
+#table input {
+	font-family: "Open Sans", sans-serif;
+	background: #fff;
+	font-size: 16px;
+	height: 40px;
+	width: 35%;
+	border: 1px solid #D3D3D3;
+	border-radius: 3px;
+}
+
+#table .search-input button {
+	font-family: "Open Sans", sans-serif;
+	margin-left: 10px;
+	width: 15%;
+	padding: 0;
+}
+
+#table select {
+	font-family: "Open Sans", sans-serif;
+	background: #fff;
+	font-size: 16px;
+	height: 40px;
+	width: 100%;
+	color: #111;
+	border: 1px solid #D3D3D3;
+	border-radius: 3px;
+}
+
+
+
+/*==================================================
+                ratingsystem
+==================================================*/
+
+/* Rating Star Widgets Style */
+.rating-stars ul {
+	list-style-type: none;
+	padding: 0;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+
+.rating-stars ul > li.star {
+	display: inline-block;
+
+}
+
+/* Idle State of the stars */
+.rating-stars ul > li.star > i.fa {
+	font-size: 13px;
+	/* Change the size of the stars */
+	color: #ccc;
+	/* Color on idle state */
+}
+
+/* Hover state of the stars */
+.rating-stars ul > li.star.hover > i.fa {
+	color: #FFCC36;
+}
+
+/* Selected state of the stars */
+.rating-stars ul > li.star.selected > i.fa {
+	color: #FF912C;
+}
+
+/*=========================================
+                Footer
+=========================================*/
+
+.content {
+	min-height: 100%;
+	padding: 0px;
+	padding-bottom: 50px;
+}
+
+footer {
+	height: auto;
+	margin-top: -50px;
+	padding: 10px 20px;
+	border-top: 1px solid #d3d3d3;
+}
+
+footer .right {
+	float: right;
+}
+
+footer .left {
+	float: left;
+}
+
+
+/*=============================================
+				login / signup
+=============================================*/
+
+.background {
+	height: 100%;
+	width: 100%;
+	background-image: url("../img/login-with-overlay.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+#login-form {
+	left: 50%;
+	top: 50%;
+	position: absolute;
+	-webkit-transform: translate3d(-50%, -50%, 0);
+	transform: translate3d(-50%, -50%, 0);
+	min-width: 450px;
+	font-size: 17px;
+}
+
+#login-form .logo,
+#signup .logo {
+	padding: 10px;
+	text-align: center;
+}
+
+#login-form .form,
+#signup .form {
+	padding: 30px;
+	background: #fff;
+	border-radius: 3px;
+}
+
+#login-form h1,
+#signup h1 {
+	font-family: "Open Sans", sans-serif;
+	font-size: 28px;
+	font-weight: 600;
+	text-align: center;
+	color: #6255a5;
+	margin: 0;
+	padding: 0;
+}
+
+#login-form .form-check-input,
+#signup .form-check-input {
+	margin-right: 10px;
+	width: 20px;
+	height: 20px;
+}
+
+#login-form p,
+#signup p {
+	font-family: "Open Sans", sans-serif;
+	font-size: 15px;
+	font-weight: 400;
+	text-align: center;
+	margin: 5px 0 0 0;
+	padding: 0;
+}
+
+#login-form .form-group,
+#signup .form-group {
+	margin-top: 30px;
+}
+
+#login-form .form-group a,
+#signup .form-group a {
+	font-family: "Open Sans", sans-serif;
+	color: #6255a5;
+	font-size: 15px;
+	font-weight: 400;
+	float: right;
+}
+
+#login-form .form-control,
+#signup .form-control {
+	font-family: "Open Sans", sans-serif;
+	height: 40px;
+	width: 100%;
+	font-size: 17px;
+	font-weight: 400;
+	border: 1pxx solid #D3D3D3;
+	margin: 0;
+	color: #111;
+	border-radius: 3px;
+}
+
+#login-form label,
+#login-form .errormsg {
+	font-family: "Open Sans", sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+
+#login-form button,
+#signup button {
+	font-family: "Open Sans", sans-serif;
+	height: 40px;
+	width: 100%;
+	font-size: 17px;
+	font-weight: 600;
+	background-color: #6255a5;
+	border: none;
+	margin-top: 20px;
+	border-radius: 3px;
+}
+
+#login-form .form-group .field-icon,
+#signup .form-group .field-icon {
+	float: right;
+	font-size: 18px;
+	margin-left: -25px;
+	margin-top: -25px;
+	position: relative;
+	z-index: 2;
+}
+
+#login-form .form-group .errormsg {
+	color: red;
+	font-size: 13px;
+	font-weight: 300;
+}
+
+.signup-background {
+	background-image: url("../img/pre-login/banner-with-overlay.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+
+#signup .success-signup {
+	color: green;
+	margin-top: 20px;
+}
+
+#signup .success-signup i {
+	background: green;
+	padding: 0;
+	margin: 0;
+	border-radius: 50%;
+	color: #fff;
+}
+
+#signup {
+	margin: auto;
+	padding: 120px 0;
+	position: inherit;
+	-webkit-transform: none;
+	transform: none;
+	min-width: 450px;
+	width: 450px;
+	font-size: 17px;
+}

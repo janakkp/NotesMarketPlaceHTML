@@ -1,0 +1,67 @@
+﻿@model PagedList.IPagedList<NotesMarketPlace.Models.UserBuyerSoldRejectedDownloadDashboardNotes>
+
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+<section id="dashboard-2">
+    <div id="table" class="manage-administrator">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-sm-6 col-xs-12">
+                    <h2>In Process Notes</h2>
+                </div>
+                <div class="col-md-5 col-sm-6 col-xs-12 search">
+                    @using (Html.BeginForm("Dashboard", "User", FormMethod.Get))
+                    {
+                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { htmlAttributes = new { @class = "mainLoginInput" } })
+                        <button id="submit" type="submit">SEARCH</button>
+                    }
+                </div>
+            </div>
+            <div style="overflow-x:auto;">
+                <table class="table">
+                    <tr>
+                        <th>@Html.ActionLink("ADDED Date", "Dashboard", new { sortOrder = ViewBag.date, currentFilter = ViewBag.CurrentFilter })</th>
+                        <th>@Html.ActionLink("TITLE", "Dashboard", new { sortOrder = ViewBag.title, currentFilter = ViewBag.CurrentFilter })</th>
+                        <th>@Html.ActionLink("CATEGORY", "Dashboard", new { sortOrder = ViewBag.category, currentFilter = ViewBag.CurrentFilter })</th>
+                        <th>@Html.ActionLink("STATUS", "Dashboard", new { sortOrder = ViewBag.status, currentFilter = ViewBag.CurrentFilter })</th>
+                        <th style="text-align: center;"><a>ACTION</a></th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.addeddate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.category)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.status)
+                            </td>
+                            @if (item.statusid == 6)
+                            {
+                                <td style="text-align: center;">    <img src="~/img/edit.png" onclick="location.href='@Url.Action("Editnote", "User", new { noteid = item.noteid })'" />&nbsp;&nbsp;<img src="~/img/delete.png" onclick="location.href='@Url.Action("Delete", "User", new { id = item.noteid })'" /></td>
+                            }
+                            else
+                            {
+                                <td style="text-align: center;"><img src="~/img/eye.png" onclick="location.href='@Url.Action("Notedetail", "User", new { id = item.noteid })'" /></td>
+                            }
+                        </tr>
+                    }
+
+                </table>
+                <br />
+                <div style="text-align:center; ">
+
+                    @Html.PagedListPager(Model, page => Url.Action("Dashboard",
+                                              new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

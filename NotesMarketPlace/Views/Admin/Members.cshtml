@@ -1,0 +1,114 @@
+﻿@model IEnumerable<NotesMarketPlace.Models.AdminNotes>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Members";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<section id="members">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 col-sm-6 col-xs-12">
+                <h1>Members</h1>
+            </div>
+            <div class="col-md-5 col-sm-6 col-xs-12 search">
+                @using (Html.BeginForm("Members", "Admin", FormMethod.Get))
+                {
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { htmlAttributes = new { @class = "mainLoginInput", @placeholder = "&#61442; Search" } })
+                    <button id="submit" type="submit">SEARCH</button>
+                }
+            </div>
+        </div>
+        <div style="overflow-x:auto;">
+            <table class="table">
+                <tr>
+                    <th>
+                        <a>SR NO.</a>
+                    </th>
+                    <th>
+                        @Html.ActionLink("FIRST NAME", "Members", new { sortOrder = ViewBag.fname, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("LAST NAME", "Members", new { sortOrder = ViewBag.lname, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("EMAIL", "Members", new { sortOrder = ViewBag.email, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("JOINING DATE", "Members", new { sortOrder = ViewBag.joiningdate, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("NOTES UNDER REVIEW", "Members", new { sortOrder = ViewBag.underreviewnote, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("PUBLISHED NOTES", "Members", new { sortOrder = ViewBag.publishednote, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("DOWNLOADED NOTES", "Members", new { sortOrder = ViewBag.downloadednote, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("TOTAL EXPENSE", "Members", new { sortOrder = ViewBag.totalexpence, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("TOTAL EARNING", "Members", new { sortOrder = ViewBag.totalearning, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th></th>
+                </tr>
+                @{
+                    int a = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @a
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.firstname)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.lastname)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.joiningdate)
+                            </td>
+                            <td>
+                                <a href='@Url.Action("NotesUnderReview", "Admin", new { selectedseller = item.memberid})'>@Html.DisplayFor(modelItem => item.underreviewnote)</a>
+                            </td>
+                            <td>
+                                <a href='@Url.Action("Publishednote", "Admin", new { selectedseller = item.memberid})'>@Html.DisplayFor(modelItem => item.publishednote)</a>
+                            </td>
+                            <td>
+                                <a href='@Url.Action("DownloadedNotes", "Admin", new { selectedbuyer = item.memberid})'>@Html.DisplayFor(modelItem => item.downloadednote)</a>
+                            </td>
+                            <td>
+                                <a href='@Url.Action("DownloadedNotes", "Admin", new { selectedbuyer = item.memberid})'>@Html.DisplayFor(modelItem => item.totalexpense)</a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.totalearning)
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="dropbtn"> <img src="~/img/dots.png"></button>
+                                    <div class="dropdown-content">
+                                        <a href="@Url.Action("Memberdetail", "Admin", new { id = item.memberid})">View More Details</a>
+                                        @Html.ActionLink("Deactivate", "deactivate", new { id = item.memberid }, new { onclick = "return confirm('Are you sure you want to make this member inactive?');" })
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        a = a + 1;
+                    }
+                }
+            </table>
+            <div style="text-align:center; ">
+                @Html.PagedListPager(Model as PagedList.IPagedList, page => Url.Action("Members",
+                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+            </div>
+        </div>
+    </div>
+</section>

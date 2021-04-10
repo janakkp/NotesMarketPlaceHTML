@@ -1,0 +1,86 @@
+﻿@model PagedList.IPagedList<NotesMarketPlace.Models.UserBuyerSoldRejectedDownloadDashboardNotes>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "RejectedNote";
+    Layout = "~/Views/Shared/Registered.cshtml";
+}
+@if (TempData["Clone"] != null)
+{
+    <script>alert('@TempData["Clone"]');</script>
+}
+
+
+<section id="buyer-request">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 col-sm-6 col-xs-12">
+                <h2>My Rejected Notes</h2>
+            </div>
+            <div class="col-md-5 col-sm-6 col-xs-12 search">
+                @using (Html.BeginForm("RejectedNote", "User", FormMethod.Get))
+                {
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { htmlAttributes = new { @class = "mainLoginInput" } })
+                    <button id="submit" type="submit">SEARCH</button>
+                }
+            </div>
+        </div>
+        <div style="overflow-x:auto;">
+            <table>
+                <tr>
+                    <th style="text-align: center;"><a>SR NO.</a></th>
+                    <th>
+                        @Html.ActionLink("NOTE TITLE", "RejectedNote", new { sortOrder = ViewBag.title, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("CATEGORY", "RejectedNote", new { sortOrder = ViewBag.category, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("REMARKS", "RejectedNote", new { sortOrder = ViewBag.remark, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th><a>CLONE</a></th>
+                    <th><a>Action</a></th>
+                    <th></th>
+                </tr>
+                @{
+                    int a = 1;
+                    foreach (var item in Model){
+                        <tr>
+                            <td style="text-align: center;">
+                                @a
+                            </td>
+                            <td>
+                                <a href='@Url.Action("Notedetail", "User", new { id = item.noteid})'>@Html.DisplayFor(modelItem => item.title)</a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.category)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.remark)
+                            </td>
+                            <td>
+                                <a href='@Url.Action("clonenote", "User", new { id = item.noteid})'>CLONE</a>
+                            </td>
+                            <td style="text-align: center;"><img src="~/img/eye.png" onclick="location.href='@Url.Action("Notedetail", "User", new { id = item.noteid })'" /></td>
+                            <td style="text-align: center;">
+                                <div class="dropdown">
+                                    <button class="dropbtn"><img src="~/img/dots.png"></button>
+                                    <div class="dropdown-content">
+                                        <a href="@Url.Action("Download", "User", new {id = item.noteid })">Download Note</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        a = a + 1;
+                    }
+                }
+            </table>
+            <br />
+            <div style="text-align:center; ">
+                @Html.PagedListPager(Model, page => Url.Action("RejectedNote",
+                    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+            </div>
+        </div>
+    </div>
+</section>

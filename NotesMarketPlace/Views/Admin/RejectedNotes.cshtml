@@ -1,0 +1,112 @@
+﻿@model IEnumerable<NotesMarketPlace.Models.AdminNotes>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "RejectedNotes";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+<section id="rejected-notes">
+    <div class="container">
+        <h1>Rejected Notes</h1>
+        <div class="row">
+            <div class="col-md-7 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label>seller *</label>
+                    <div>
+                        @using (Html.BeginForm("RejectedNotes", "Admin", FormMethod.Get))
+                        {
+                            @Html.DropDownList("selectedseller", ViewBag.sellerdropdown as SelectList, "Select Seller", new { @onchange = "this.form.submit()" })
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-6 col-xs-12 search">
+                @using (Html.BeginForm("RejectedNotes", "Admin", FormMethod.Get))
+                {
+                    <input name="selectedseller" value="@ViewBag.selectedseller" hidden>
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { htmlAttributes = new { @class = "mainLoginInput", @placeholder = "&#61442; Search" } })
+                    <button id="submit" type="submit">SEARCH</button>
+                }
+            </div>
+        </div>
+        <div style="overflow-x:auto;">
+            <table>
+                <tr>
+                    <th>
+                        <a>SR NO.</a>
+                    </th>
+                    <th>
+                        @Html.ActionLink("TITLE", "RejectedNotes", new { sortOrder = ViewBag.title, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })
+                    </th>
+                    <th>
+                        @Html.ActionLink("CATEGORY", "RejectedNotes", new { sortOrder = ViewBag.category, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })
+                    </th>
+                    <th>
+                        @Html.ActionLink("SELLER", "RejectedNotes", new { sortOrder = ViewBag.seller, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                        @Html.ActionLink("DATE EDITED", "RejectedNotes", new { sortOrder = ViewBag.dateedited, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })
+                    </th>
+                    <th>
+                        @Html.ActionLink("REJECTED BY", "RejectedNotes", new { sortOrder = ViewBag.rejectedby, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })
+                    </th>
+                    <th>
+                        @Html.ActionLink("REMARK", "RejectedNotes", new { sortOrder = ViewBag.remark, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })
+                    </th>
+                    <th></th>
+                </tr>
+                @{
+                    int a = 1;
+
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="text-align:center;">
+                                @a
+                            </td>
+                            <td>
+                                <a href='@Url.Action("Notedetail", "Admin", new { id = item.noteid})'>@Html.DisplayFor(modelItem => item.title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.category)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.seller)
+                            </td>
+                            <td><img src="~/img/eye.png" onclick="location.href='@Url.Action("memberdetail", "Admin", new { id = item.sellerid})'"></td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.dateedited)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.rejectedby)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.remark)
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="dropbtn"> <img src="~/img/dots.png"></button>
+                                    <div class="dropdown-content">
+                                        @Html.ActionLink("Approve", "reject_approve", new { id = item.noteid }, new { onclick = "return confirm('If you approve the notes – System will publish the notes over portal. Please press yes to continue.');" })
+                                        <a href="@Url.Action("Download", "Admin", new { id = item.noteid})">Download Notes</a>
+                                        <a href="@Url.Action("Notedetail", "Admin", new { id = item.noteid})">View More Details</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        a = a + 1;
+                    }
+                }
+            </table>
+            <div style="text-align:center; ">
+                @Html.PagedListPager(Model as PagedList.IPagedList, page => Url.Action("RejectedNotes",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller }))
+            </div>
+        </div>
+    </div>
+</section>
+
+

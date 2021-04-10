@@ -1,0 +1,101 @@
+﻿@model IEnumerable<NotesMarketPlace.Models.Adminmanageadministrator>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "ManageAdministrator";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+
+<section id="manage-type">
+    <div class="container">
+        <h1>Manage Administation</h1>
+        <div class="row">
+            <div class="col-md-7 col-sm-6 col-xs-12">
+                <button id="submit" onclick="location.href='@Url.Action("addedit_administrator", "Admin")'" type="submit">ADD ADMINISTRATOR</button>
+            </div>
+            <div class="col-md-5 col-sm-6 col-xs-12 search">
+                @using (Html.BeginForm("ManageAdministrator", "Admin", FormMethod.Get))
+                {
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { htmlAttributes = new { @class = "mainLoginInput", @placeholder = "&#61442; Search" } })
+                    <button id="submit" type="submit">SEARCH</button>
+                }
+
+            </div>
+        </div>
+        <div style="overflow-x:auto;">
+            <table>
+                <tr>
+                    <th><a>SR NO.</a></th>
+                    <th>
+                        @Html.ActionLink("FIRST NAME", "ManageAdministrator", new { sortOrder = ViewBag.firstname, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("LAST NAME", "ManageAdministrator", new { sortOrder = ViewBag.lastname, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("EMAIL", "ManageAdministrator", new { sortOrder = ViewBag.email, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("PHONE", "ManageAdministrator", new { sortOrder = ViewBag.phone, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("DATE ADDED", "ManageAdministrator", new { sortOrder = ViewBag.dateadded, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("ACTIVE", "ManageAdministrator", new { sortOrder = ViewBag.active, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                @{
+                    var a = 1;
+                    foreach (var item in Model)
+                    {
+                                <tr>
+                                    <td style="text-align:center;">@a</td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.firstname)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.lastname)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.phoneno)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.addeddate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.active)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("addedit_administrator", "Admin", new { id = item.id})"><img src="~/img/edit.png" /></a>
+                                    </td>
+                                    <td>
+                                        @using (Html.BeginForm("Delete_administrator", "Admin", new { id = item.id }))
+                                        {
+                                            <button onclick="return confirm('Are you sure you want to make this administrator inactive?')" style="all:unset;"><img src="~/img/delete.png" /></button>
+                                        }
+                                    </td>
+                                </tr>
+                        a = a + 1;
+                    }
+                }
+            </table>
+            <div style="text-align:center; ">
+                @Html.PagedListPager(Model as PagedList.IPagedList, page => Url.Action("ManageAdministrator",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+            </div>
+        </div>
+
+
+
+    </div>
+
+</section>
+

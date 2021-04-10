@@ -1,0 +1,98 @@
+﻿@model PagedList.IPagedList<NotesMarketPlace.Models.UserBuyerSoldRejectedDownloadDashboardNotes>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "BuyerRequest";
+    Layout = "~/Views/Shared/Registered.cshtml";
+}
+
+<section id="buyer-request">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 col-sm-6 col-xs-12">
+                <h2>Buyer Requests</h2>
+            </div>
+            <div class="col-md-5 col-sm-6 col-xs-12 search">
+                @using (Html.BeginForm("BuyerRequest", "User", FormMethod.Get))
+                {
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { htmlAttributes = new { @class = "mainLoginInput" } })
+                    <button id="submit" type="submit">SEARCH</button>
+                }
+            </div>
+        </div>
+        <div style="overflow-x:auto;">
+            <table class="table">
+                <tr>
+                    <th style="text-align: center;"><a>SR NO.</a></th>
+                    <th>
+                        @Html.ActionLink("NOTE TITLE", "BuyerRequest", new { sortOrder = ViewBag.title, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("CATEGORY", "BuyerRequest", new { sortOrder = ViewBag.category, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("BUYER", "BuyerRequest", new { sortOrder = ViewBag.email, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("SELL TYPE", "BuyerRequest", new { sortOrder = ViewBag.selltype, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("PRICE", "BuyerRequest", new { sortOrder = ViewBag.price, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("DOWNLOADED DATE/TIME", "BuyerRequest", new { sortOrder = ViewBag.date, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th></th>
+                    <th></th>
+
+                </tr>
+                @{
+                    int a = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="text-align: center;">
+                                @a
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.category)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.selltype)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.price)
+                            </td>
+                            <td> 
+                                @Html.DisplayFor(modelItem => item.date)
+                            </td>
+                            <td style="text-align: center;"><img src="~/img/eye.png" onclick="location.href='@Url.Action("Notedetail", "User", new { id = item.noteid })'" /></td>
+                            <td style="text-align: center;">
+                                <div class="dropdown">
+                                    <button class="dropbtn"><img src="~/img/dots.png"></button>
+                                    <div class="dropdown-content">
+                                        <a href="@Url.Action("allowdownload", "User", new { id = item.noteid })">Allow Download</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        a = a + 1;
+                    }
+                }
+            </table>
+            <br/>
+            <div style="text-align:center; ">
+
+                @Html.PagedListPager(Model, page => Url.Action("BuyerRequest",
+                    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+            </div>
+            </div>
+        </div>
+</section>

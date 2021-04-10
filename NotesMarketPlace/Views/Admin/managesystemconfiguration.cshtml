@@ -1,0 +1,98 @@
+﻿@model NotesMarketPlace.Models.Adminmanagesystemconfiguration
+
+@{
+    ViewBag.Title = "managesystemconfiguration";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+@using (Html.BeginForm("managesystemconfiguration", "Admin", FormMethod.Post, new
+{
+    enctype = "multipart/form-data"
+})) { 
+    @Html.AntiForgeryToken()
+
+    <section id="manage-configuration">
+        <div class="container">
+            <h1>Manage System Configuration</h1>
+            <div class="row">
+                <div class="col-md-6 col-sm-9 col-xs-12">
+                    <div class="form-group">
+                        <label>Support emails address*</label>
+                        <div>
+                            <input type="text" class="form-control" name="email" value="@ViewBag.email">
+                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Support phone number*</label>
+                        <div>
+                            <input type="text" class="form-control" name="phone" value="@ViewBag.phone">
+                            @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address(es)(for various events system will send notification to these users)</label>
+                        <div>
+                            <input type="text" class="form-control" name="emails" value="@ViewBag.emails">
+                            @Html.ValidationMessageFor(model => model.emails, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Facebook URL </label>
+                        <div>
+                            <input type="text" class="form-control" name="facebook" value="@ViewBag.facebook">
+                            @Html.ValidationMessageFor(model => model.facebook, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Twitter URL </label>
+                        <div>
+                            <input type="text" class="form-control" name="twitter" value="@ViewBag.twitter">
+                            @Html.ValidationMessageFor(model => model.twitter, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Linkedin URL </label>
+                        <div>
+                            <input type="text" class="form-control" name="linkedin" value="@ViewBag.linkedin">
+                            @Html.ValidationMessageFor(model => model.linkedin, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Default images for notes(if seller do not upload)*</label>
+                        <div class="drop-zone">
+                            @if (ViewBag.defaultnoteimage != null)
+                            {
+                                <span class="drop-zone__prompt"><img src="~/UserFile/DisplayPictureName/@ViewBag.defaultnoteimage"><br>@ViewBag.defaultnoteimage</span>
+                            }
+                            else
+                            {
+                                <span class="drop-zone__prompt"><img src="~/img/upload-file.png"><br>Upload your notes</span>
+                            }
+                            <input type="file" name="defaultnoteimg" class="drop-zone__input" style="display: none;" accept="image/*">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Default profile picture(if seller do not upload)*</label>
+                        <div class="drop-zone">
+                            @if (ViewBag.defaultprofileimage != null)
+                            {
+                                <span class="drop-zone__prompt"><img src="~/UserFile/UserProfile/@ViewBag.defaultprofileimage"><br>@ViewBag.defaultprofileimage</span>
+                            }
+                            else
+                            {
+                                <span class="drop-zone__prompt"><img src="~/img/upload-file.png"><br>Upload your notes</span>
+                            }
+                            <input type="file" name="defaultprofileimg" class="drop-zone__input" style="display: none;" accept="image/*">
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <button class="submit">SUBMIT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

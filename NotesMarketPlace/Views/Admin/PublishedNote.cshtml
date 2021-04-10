@@ -1,0 +1,145 @@
+﻿@model IEnumerable<NotesMarketPlace.Models.AdminNotes>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+<section id="published-notes">
+    <div class="container">
+        <h1>Published Notes</h1>
+        <div class="row">
+            <div class="col-md-7 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label>seller *</label>
+                    <div>
+                        @using (Html.BeginForm("PublishedNote", "Admin", FormMethod.Get))
+                        {
+                            @Html.DropDownList("selectedseller", ViewBag.userdropdown as SelectList, "Select Seller", new { @onchange = "this.form.submit()" })
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-6 col-xs-12 search">
+                @using (Html.BeginForm("PublishedNote", "Admin", FormMethod.Get))
+                {
+                    <input name="SelectedSeller" value="@ViewBag.selectedseller" hidden>
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { htmlAttributes = new { @class = "mainLoginInput", @placeholder = "&#61442; Search" } })
+                    <button id="submit" type="submit">SEARCH</button>
+                }
+            </div>
+        </div>
+        <div style="overflow-x:auto;">
+
+            <table>
+                <tr>
+                    <th>
+                        <a>SR NO.</a>
+                    </th>
+                    <th>
+                        @Html.ActionLink("TITLE", "PublishedNote", new { sortOrder = ViewBag.title, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })
+                    </th>
+                    <th>
+                        @Html.ActionLink("CATEGORY", "PublishedNote", new { sortOrder = ViewBag.category, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })
+                    </th>
+                    <th>
+                        @Html.ActionLink("SELL TYPE", "PublishedNote", new { sortOrder = ViewBag.selltype, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })
+                    </th>
+                    <th>
+                        @Html.ActionLink("PRICE", "PublishedNote", new { sortOrder = ViewBag.price, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })
+                    </th>
+                    <th>
+                        @Html.ActionLink("SELLER", "PublishedNote", new { sortOrder = ViewBag.seller, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                        @Html.ActionLink("PUBLISHED DATE", "PublishedNote", new { sortOrder = ViewBag.publisheddate, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })
+                    </th>
+                    <th>
+                        @Html.ActionLink("APPROVED BY", "PublishedNote", new { sortOrder = ViewBag.approveby, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })
+                    </th>
+                    <th>
+                        @Html.ActionLink("NUMBER OF DOWNLOADS", "PublishedNote", new { sortOrder = ViewBag.noofdown, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })
+                    </th>
+                    <th>
+                        <a>ACTION</a>
+                    </th>
+                </tr>
+                @{
+                    int a = 1;
+
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="text-align:center;">
+                                @a
+                            </td>
+                            <td>
+                                <a href='@Url.Action("Notedetail", "Admin", new { id = item.noteid})'>@Html.DisplayFor(modelItem => item.title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.category)
+                            </td>
+                            <td style="text-align:center;">
+                                @Html.DisplayFor(modelItem => item.selltype)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.seller)
+                            </td>
+                            <td><img src="~/img/eye.png" onclick="location.href='@Url.Action("memberdetail", "Admin", new { id = item.sellerid})'"></td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.publisheddate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.approvedby)
+                            </td>
+                            <td style="text-align:center;">
+                                <a href='@Url.Action("DownloadedNotes", "Admin", new { selectednote = item.noteid})'>@Html.DisplayFor(modelItem => item.noofdownload)</a>
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="dropbtn"> <img src="~/img/dots.png"></button>
+                                    <div class="dropdown-content">
+                                        <a href="@Url.Action("Download", "Admin", new { id = item.noteid})">Download Notes</a>
+                                        <a href="@Url.Action("Notedetail", "Admin", new { id = item.noteid})">View More Details</a>
+                                        <a onclick="unpublishpopup('@item.title','@item.noteid')">Unpublish</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        a = a + 1;
+                    }
+                }
+            </table>
+            <div style="text-align:center; ">
+
+                @Html.PagedListPager(Model as PagedList.IPagedList, page => Url.Action("PublishedNote",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller }))
+
+            </div>
+
+        </div>
+</section>
+<form method="post" action="@Url.Action("Published_Unpublish", "Admin")" class="inappropriate" id="unpublish-popup">
+    <img class="close" src="~/img/close.png" onclick="location.href='@Url.Action("Publishednote", "Admin")'" />
+    <h2>Unpublished Notes</h2>
+    <input type="text" class="textbox" name="id" id="id1" readonly hidden />
+    <label>Title</label>
+    <input type="text" class="textbox" id="title" readonly />
+    <label>Remark*</label>
+    <textarea class="textarea" name="remark" rows="4" required></textarea>
+    <button type="submit" onclick="return confirm('“Are you sure you want to Unpublish this note?');">Submit</button>
+</form>
+
+
+
+
+
+
+
+

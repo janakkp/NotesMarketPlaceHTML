@@ -1,0 +1,108 @@
+﻿@model NotesMarketPlace.Models.Adminmanageadministrator
+
+@{
+    ViewBag.Title = "addedit_administrator";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<h2>addedit_administrator</h2>
+@if (ViewBag.administratorerror != null) { 
+<script>
+ window.onload = function () {
+                                alert("@ViewBag.administratorerror");
+                            };</script>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <section id="add-addministration">
+        <div class="container">
+            <h1>Add Administration</h1>
+            <div class="row">
+                @if (ViewBag.id != null)
+                {
+                @Html.HiddenFor(model => model.id)
+                }
+                <div class="col-md-6 col-sm-9 col-xs-12">
+                    <div class="form-group">
+                        <label>First Name*</label>
+                        <div>
+                            @if (ViewBag.firstname == null)
+                            {<input type="text" class="form-control" name="firstname" value="" placeholder="Enter your first name">
+                            }
+                            else
+                            {<input type="text" class="form-control" name="firstname" value="@ViewBag.firstname" placeholder="Enter your first name">
+                            }
+                            @Html.ValidationMessageFor(model => model.firstname, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name*</label>
+                        <div>
+                            @if (ViewBag.lastname == null)
+                            {<input type="text" class="form-control" name="lastname" value="" placeholder="Enter your Last name">
+                            }
+                            else
+                            {<input type="text" class="form-control" name="lastname" value="@ViewBag.lastname" placeholder="Enter your first name">
+                            }
+                            @Html.ValidationMessageFor(model => model.lastname, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email*</label>
+                        <div>
+                            @if (ViewBag.email == null)
+                            {
+                                <input type="text" class="form-control" name="email" value="" placeholder="Enter your email address">
+                            }
+                            else
+                            {
+                                <input type="text" class="form-control" name="email" value="@ViewBag.email" placeholder="Enter your email address">
+                            }
+                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <select name="phonecode" id="phonecode" class="form-control">
+                                    @if (ViewBag.phonecode == null)
+                                    {
+                                        <option data-countryCode="GB" value="" Selected>Select Country Code</option>
+                                    }
+                                    else
+                                    {
+                                        <option data-countryCode="GB" value="@ViewBag.phonecode" Selected>@ViewBag.phonecode</option>
+                                    }
+                                    <option data-countryCode="GB" value="44">(+44)</option>
+                                    <option data-countryCode="IN" value="91">(+91)</option>
+                                </select>
+                                @Html.ValidationMessageFor(model => model.phonecode, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-9 col-sm-9 col-xs-9">
+                                @if (ViewBag.phoneno == null)
+                                {
+                                    <input type="phone" class="form-control" name="phoneno" value="" placeholder="Enter your phone number">
+                                }
+                                else
+                                {
+                                    <input type="phone" class="form-control" name="phoneno" value="@ViewBag.phoneno" placeholder="Enter your phone number">
+                                }
+                                @Html.ValidationMessageFor(model => model.phoneno, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="submit">SUBMIT</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+}

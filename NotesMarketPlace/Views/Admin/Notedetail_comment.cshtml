@@ -1,0 +1,52 @@
+﻿@model IEnumerable<NotesMarketPlace.Models.AdminNotedetail>
+
+
+@foreach (var item in Model)
+{
+
+    var a = @item.ratingstar;
+    <!-- Review 01 -->
+    <div class="row border-bottom">
+        <div class="col-md-2 col-sm-2 col-xs-2 image">
+            @if (!string.IsNullOrEmpty(item.reviewerphoto))
+            {
+                <img src="~/UserFile/UserProfile/@item.reviewerphoto" alt="team member">
+            }
+            else
+            {
+                <img src="~/img/reviewer-1.png" alt="team member">
+            }
+        </div>
+        <div class="col-md-10 col-sm-10 col-xs-10 name">
+            <div class="row">
+                <div class="col-md-10 col-sm-10 col-xs-9">
+                    <h4>@item.reviewername</h4>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-3">
+                    @using (Html.BeginForm("Delete_review", "Admin", new { id = item.reviewid }))
+                    {
+                        <button onclick="return confirm('Are you sure you want to delete this review?')" style="all:unset; "><img src="~/img/delete.png" style=" height: 20px; width: 20px;"/></button>
+                    }   
+                </div>
+            </div>
+            <div class="rating-stars col-md-12 col-sm-12 col-xs-12">
+                <ul id='stars'>
+                    @for (var i = 1; i <= a; i++)
+                    {
+                        <li class='star' title='Poor' data-value='1'>
+                            <img src="~/img/star.png" style="width:12px; height:12px;">
+                        </li>
+                    }
+                    @for (var i = a; i < 5; i++)
+                    {
+                        <li class='star' title='Poor' data-value='1'>
+                            <img src="~/img/star-white.png" style="width:12px; height:12px;">
+                        </li>
+                    }
+                </ul>
+            </div>
+            <p>@item.comment</p>
+        </div>
+    </div>
+
+}

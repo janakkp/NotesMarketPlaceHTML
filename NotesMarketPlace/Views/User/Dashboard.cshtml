@@ -1,0 +1,92 @@
+﻿@model PagedList.IPagedList<NotesMarketPlace.Models.UserBuyerSoldRejectedDownloadDashboardNotes>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/Registered.cshtml";
+}
+
+<div id="dashboard">
+    <section id="dashboard-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <h2>Dashboard</h2>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <a href="@Url.Action("Addnote", "User")" class="addbutton">ADD NOTE</a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-sm-12 col-xs-12">
+                    <div class="row left">
+                        <div class="col-md-4 col-sm-4 col-xs-4 box">
+                            <img src="~/img/earning-icon.svg" class="icon-img">
+                            <h3>My Earning</h3>
+                        </div>
+                        <div class="col-md-8 col-sm-8 col-xs-8 box">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <h3><a href="@Url.Action("SoldNote", "User")">@ViewBag.notesold</a></h3>
+                                    <h4>Number of Notes Sold</h4>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <h3><a href="@Url.Action("SoldNote", "User")">@ViewBag.Total</a></h3>
+                                    <h4>Money Earned</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-12 col-xs-12">
+                    <div class="row right">
+                        @if (ViewBag.downloadno != 0)
+                        {
+                            <div class="col-md-4 col-sm-4 col-xs-4 box">
+                                <div class="box1">
+                                    <h3><a href="@Url.Action("Mydownloads", "User")">@ViewBag.downloadno</a></h3>
+                                    <h4>My Downloads</h4>
+                                </div>
+                            </div>
+                        }
+                        @if (ViewBag.rejectno != 0)
+                        {
+                            <div class="col-md-4 col-sm-4 col-xs-4 box">
+                                <div class="box2">
+                                    <h3><a href="@Url.Action("RejectedNote", "User")">@ViewBag.rejectno</a></h3>
+                                    <h4>My Rejected Notes</h4>
+                                </div>
+                            </div>
+                        }
+                        @if (ViewBag.Buyerreuest != 0)
+                        {
+                            <div class="col-md-4 col-sm-4 col-xs-4 box">
+                                <div class="box3">
+                                    <h3><a href="@Url.Action("BuyerRequest", "User")">@ViewBag.Buyerreuest</a></h3>
+                                    <h4>Buyer Reuests</h4>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @{
+        Html.RenderAction("Inprocessnote", "User");
+    }
+
+    @{
+        Html.RenderAction("Publishednote", "User");
+    }
+
+
+
+
+</div>
