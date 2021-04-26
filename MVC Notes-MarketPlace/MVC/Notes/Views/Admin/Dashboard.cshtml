@@ -1,0 +1,158 @@
+﻿@model IEnumerable<Notes.Models.AdminNotes>
+
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+
+<section id="dashboard">
+    <div class="container">
+        <h1>Dashboard</h1>
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12 box">
+                <div class="box1">
+                    <a href="@Url.Action("NotesUnderReview", "Admin")"><h3>@ViewBag.InReviewNotes</h3></a>
+                    <h5>Numbers of Notes in Review for Public</h5>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 box">
+                <div class="box2">
+                    <a href="@Url.Action("DownloadedNotes", "Admin")"><h3>@ViewBag.DownloadedNotes</h3></a>
+                    <h3></h3>
+                    <h5>Numbers of New Notes Downloaded<br>(Last 7 days)</h5>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 box">
+                <div class="box3">
+                    <a href="@Url.Action("Members", "Admin")"><h3>@ViewBag.User</h3></a>
+                    <h5>Numbers of New Registrations(Last 7 days)</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" id="table">
+        <div class="row">
+            <div class="col-md-3 col-sm-3 col-xs-12">
+                <h3>Published Notes</h3>
+            </div>
+            <div class="col-md-7 col-sm-6 col-xs-8 search-input">
+                @using (Html.BeginForm("Dashboard", "Admin", FormMethod.Get))
+                {
+                    <input name="SelectedMonth" value="@ViewBag.SelectedMonth" hidden>
+                    <input class="mainLoginInput" type="text" value="@ViewBag.CurrentFilter" name="SearchString" placeholder="&#61442;Search notes here..." />
+                    <button id="submit" type="submit">SEARCH</button>
+                }
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-4 select">
+                @using (Html.BeginForm("Dashboard", "Admin", FormMethod.Get))
+                {
+                    @Html.DropDownList("SelectedMonth", ViewBag.Months as SelectList, "Select Months", new { @onchange = "this.form.submit()" })
+                }
+            </div>
+        </div>
+        <div style="overflow-x:auto;">
+
+            <table class="table">
+                <tr>
+                    <th>
+                        NO.
+                    </th>
+                    <th>
+                        TITLE &nbsp;<a onclick='window.location="@Url.Action("Dashboard","Admin", new { sortOrder = ViewBag.title, currentFilter = ViewBag.CurrentFilter, SelectedMonth = ViewBag.SelectedMonth})"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        CATEGORY &nbsp;<a onclick='window.location="@Url.Action("Dashboard","Admin", new { sortOrder = ViewBag.category, currentFilter = ViewBag.CurrentFilter, SelectedMonth = ViewBag.SelectedMonth})"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        SIZE &nbsp;<a onclick='window.location="@Url.Action("Dashboard","Admin", new { sortOrder = ViewBag.attachmentsize, currentFilter = ViewBag.CurrentFilter, SelectedMonth = ViewBag.SelectedMonth})"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        SELL TYPE &nbsp;<a onclick='window.location="@Url.Action("Dashboard","Admin", new { sortOrder = ViewBag.selltype, currentFilter = ViewBag.CurrentFilter, SelectedMonth = ViewBag.SelectedMonth})"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        PRICE &nbsp;<a onclick='window.location="@Url.Action("Dashboard","Admin", new { sortOrder = ViewBag.price, currentFilter = ViewBag.CurrentFilter, SelectedMonth = ViewBag.SelectedMonth})"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        PUBLISHER &nbsp;<a onclick='window.location="@Url.Action("Dashboard","Admin", new { sortOrder = ViewBag.publisher, currentFilter = ViewBag.CurrentFilter, SelectedMonth = ViewBag.SelectedMonth})"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        PUBLISHED DATE &nbsp;<a onclick='window.location="@Url.Action("Dashboard","Admin",  new { sortOrder = ViewBag.publisheddate, currentFilter = ViewBag.CurrentFilter, SelectedMonth = ViewBag.SelectedMonth})"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        DOWNLOAD NO &nbsp;<a onclick='window.location="@Url.Action("Dashboard","Admin", new { sortOrder = ViewBag.noofdown, currentFilter = ViewBag.CurrentFilter, SelectedMonth = ViewBag.SelectedMonth})"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        ACTION
+                    </th>
+                </tr>
+                @{
+                    int a = 1;
+
+                    foreach (var item in Model)
+                    {
+                        <tr class="shadow">
+                            <td>
+                                @a
+                            </td>
+                            <td>
+                                <a href='@Url.Action("Notedetail", "Admin", new { id = item.noteid})' style="color:#6255a5">@Html.DisplayFor(modelItem => item.title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.category)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.attachmentsize) KB
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.selltype)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.publisher)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.publisheddate)
+                            </td>
+                            <td>
+                                <a href='@Url.Action("DownloadedNotes", "Admin", new { selectednote = item.noteid})' style="color:#6255a5">@Html.DisplayFor(modelItem => item.noofdownload)</a>
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="dropbtn"> <img src="~/img/dots.png"></button>
+                                    <div class="dropdown-content">
+                                        <a href="@Url.Action("Download", "Admin", new { id = item.noteid})">Download Notes</a>
+                                        <a href="@Url.Action("Notedetail", "Admin", new { id = item.noteid})">View More Details</a>
+                                        <a onclick="unpublishpopup('@item.title','@item.noteid')">Unpublish</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        a = a + 1;
+                    }
+                }
+            </table>
+        </div>
+        <div style="text-align:center; ">
+            @Html.PagedListPager(Model as PagedList.IPagedList, page => Url.Action("Dashboard",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, SelectedMonth = ViewBag.SelectedMonth }))
+        </div>
+    </div>
+</section>
+
+<form method="post" action="@Url.Action("Unpublish", "Admin")" class="inappropriate" id="unpublish-popup" style="position:fixed;">
+    <img class="close" src="~/img/close.png" onclick="location.href='@Url.Action("Dashboard", "Admin")'" />
+    <h2>Unpublished Notes</h2>
+    <input type="text" class="textbox" name="id" id="id1" readonly hidden />
+    <label>Title</label>
+    <input type="text" class="textbox" id="title" readonly />
+    <label>Remark*</label>
+    <textarea class="textarea" name="remark" rows="4" required></textarea>
+    <button type="submit" onclick="return confirm('Are you sure you want to Unpublish this note?');">Submit</button>
+</form>

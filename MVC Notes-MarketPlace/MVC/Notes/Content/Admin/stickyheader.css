@@ -1,0 +1,71 @@
+/*============================================
+                    Navigation
+==============================================*/
+body{
+    background-color: aquamarine;
+}
+.navbar{
+    padding: 35px 0 20px 0;
+    -webkit-transition: all 300ms linear;
+    transition: all 300ms linear;
+}
+.site-nav-wrapper{
+    padding: 0 85px;
+}
+.navbar-brand{
+    padding: 13px 15px;
+}
+ul.navbar-nav >li >a{
+    font-family: "Raleway", sans-serif;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+ul.navbar-nav > li > a:hover,
+ul.navbar-nav > li > a:focus{
+    background: none;
+    color: #6255a5;
+}
+/* White Navigation */
+.white-nav-top{
+    background: #fff;
+    padding: 10px 0;
+    -webkit-box-shadow: 0 8px 6px -9px #999;
+    box-shadow: 0 8px 6px -9px #999;
+    z-index: 2;
+}
+.white-nav-top ul.navbar-nav > li > a{
+    color: #212226;
+}
+.white-nav-top ul.navbar-nav > li > a:hover,
+.white-nav-top ul.navbar-nav > li > a:hover{
+    font-weight: 600;
+    border-bottom: 1px solid #6255a5;
+color: #62555a5;
+}
+
+/* Scroll spy active state */
+.white-nav-top ul.navbar-nav > li.active > a{
+    color: #6255a5;
+    }
+ul.navbar-nav >li >a >img{
+    border: 1px solid #6255a5;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%; 
+    margin-top: -5px;
+}
+ul.navbar-nav >li  #logout{
+    font-family: "Raleway", sans-serif;
+    font-size: 13px;
+    background-color: #6255a5;
+    color: #fff;
+    border: none;
+    height: 30px;
+    padding: 0px 20px;
+    text-align: center;
+    margin-top: -5px;
+}
+

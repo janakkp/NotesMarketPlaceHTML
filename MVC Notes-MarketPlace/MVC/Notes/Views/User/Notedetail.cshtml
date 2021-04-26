@@ -1,0 +1,295 @@
+﻿@model Notes.Models.Notedetail
+
+
+@{
+    ViewBag.Title = "Notedetail";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+@if (TempData["notedetail"] != null)
+{
+    <script>alert('@TempData["notedetail"]');</script>
+}
+
+<!-- End header -->
+<div id="note-detail">
+
+    @if (ViewBag.data != null)
+    {
+
+        foreach (var item in ViewBag.data as IEnumerable<Notes.Models.Notedetail>)
+        {
+            <section id="note-detail-1">
+                <div class="container border-bottom">
+                    <h3>Notes Detail</h3>
+                    <div class="row">
+                        <div class="col-md-7 col-sm-9 col-xs-12" id="left">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-4 image">
+                                    @if (!String.IsNullOrEmpty(item.sellernotelist.DisplayPicture))
+                                    {
+                                        <img src="~/UserFile/DisplayPictureName/@item.sellernotelist.DisplayPicture" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/img/search1.png" />
+                                    }
+                                </div>
+                                <div class="col-md-8 col-sm-8 col-xs-8 detail">
+                                    @if (item.sellernotelist.Title != null)
+                                    {
+                                        <h2>@item.sellernotelist.Title</h2>
+                                    }
+                                    else
+                                    {
+                                        <h2></h2>
+                                    }
+                                    @if (item.categorylist.Name != null)
+                                    {
+                                        <h4>@item.categorylist.Name</h4>
+                                    }
+                                    else
+                                    {
+                                        <h4></h4>
+                                    }
+                                    @if (item.sellernotelist.Description != null)
+                                    {
+                                        <p>@item.sellernotelist.Description</p>
+                                    }
+                                    else
+                                    {
+                                        <p></p>
+                                    }
+                                    @if (ViewBag.sellerid != "0")
+                                    {
+                                        if (item.sellernotelist.SellingPrice != null)
+                                        {
+                                            if (item.sellernotelist.SellingPrice == 0)
+                                            {
+                                                <button id="button" type="submit" onclick="location.href='@Url.Action("Notedetaildownload", "User", new { path = ViewBag.attach, id = item.sellernotelist.ID })'">DOWNLOAD</button>
+
+                                            }
+                                            else
+                                            {
+                                                <button id="button" type="submit" onclick="openthankspopup()">DOWNLOAD/@item.sellernotelist.SellingPrice</button>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <button id="button" type="submit" onclick="openthankspopup()">DOWNLOAD/@item.sellernotelist.SellingPrice</button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <button id="button" type="submit" onclick='window.location = "@Url.Action("Login", "User")"'>DOWNLOAD</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-8 col-xs-9" id="right">
+                            <div class="row">
+                                <div class="col-md-5 col-sm-5 col-xs-4 left">Institution:</div>
+                                @if (item.sellernotelist.UniversityName != null)
+                                {
+                                    <div class="col-md-7 col-sm-7 col-xs-8 right">@item.sellernotelist.UniversityName</div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-7 col-sm-7 col-xs-8 right"></div>
+                                }
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-sm-5 col-xs-5 left">Country:</div>
+                                @if (item.countrylist.Name != null)
+                                {
+                                    <div class="col-md-7 col-sm-7 col-xs-7 right">@item.countrylist.Name</div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-7 col-sm-7 col-xs-7 right"></div>
+                                }
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-sm-5 col-xs-5 left">Course Name:</div>
+                                @if (item.sellernotelist.Course != null)
+                                {
+                                    <div class="col-md-7 col-sm-7 col-xs-7 right">@item.sellernotelist.Course</div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-7 col-sm-7 col-xs-7 right"></div>
+                                }
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-sm-5 col-xs-5 left">Course Code:</div>
+                                @if (item.sellernotelist.CourseCode != null)
+                                {
+                                    <div class="col-md-7 col-sm-7 col-xs-7 right">@item.sellernotelist.CourseCode</div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-7 col-sm-7 col-xs-7 right"></div>
+                                }
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-sm-5 col-xs-5 left">Professor:</div>
+                                @if (item.sellernotelist.Professor != null)
+                                {
+                                    <div class="col-md-7 col-sm-7 col-xs-7 right">@item.sellernotelist.Professor</div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-7 col-sm-7 col-xs-7 right"></div>
+                                }
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-sm-5 col-xs-6 left">Number of Pages:</div>
+                                @if (item.sellernotelist.NumberOfPages != null)
+                                {
+                                    <div class="col-md-7 col-sm-7 col-xs-6 right">@item.sellernotelist.NumberOfPages</div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-7 col-sm-7 col-xs-6 right"></div>
+                                }
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-sm-5 col-xs-5 left">Approved Date:</div>
+                                @if (item.sellernotelist.NumberOfPages != null)
+                                {
+                                    <div class="col-md-7 col-sm-7 col-xs-7 right">@item.sellernotelist.PublishedDate</div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-7 col-sm-7 col-xs-7 right"></div>
+                                }
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-sm-5 col-xs-4 left">Rating:</div>
+                                <div class="col-md-7 col-sm-7 col-xs-8 right">
+                                    <div class='rating-stars'>
+                                        <ul id='stars'>
+                                            @if (ViewBag.average != null)
+                                            {
+                                                var a = ViewBag.average;
+                                                for (int i = 1; i <= a; i++)
+                                                {
+                                                    <li class='star' title='Poor' data-value='1'>
+                                                        <img src="~/img/star.png" style="width:12px; height:12px;">
+                                                    </li>
+                                                }
+                                                for (var i = a; i < 5; i++)
+                                                {
+                                                    <li class='star' title='Poor' data-value='1'>
+                                                        <img src="~/img/star-white.png" style="width:12px; height:12px;">
+                                                    </li>
+                                                }@ViewBag.count
+                                            }
+                                            else
+                                            {
+                                                @ViewBag.count
+                                            }Review
+                                        </ul>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <p class="red">@ViewBag.inappropriate users marked this note as inappropriate.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    }
+    <section id="note-detail-2">
+        <div class="container iframe">
+            <div class="row">
+                @if (ViewBag.data != null)
+                {
+                    foreach (var item in ViewBag.data as IEnumerable<Notes.Models.Notedetail>)
+                    {
+
+                        <div class="col-md-5 col-sm-6 col-xs-12">
+                            <h3>Notes Preview</h3>
+                            @if (!String.IsNullOrEmpty(item.sellernotelist.NotesPreview))
+                            {
+                                <iframe src="~/UserFile/NotesPreview/@item.sellernotelist.NotesPreview"></iframe>
+                            }
+                            else
+                            {
+                                <iframe src="~/UserFile/NotesPreview/sample.pdf" alt="Note Preview is not available"></iframe>
+                            }
+                        </div>
+                    }
+                }
+                <div class="col-md-7 col-sm-6 col-xs-12 right">
+                    <h3>Customer Reviews</h3>
+                    <div id="customers">
+                        @if (ViewBag.data2 != null)
+                        {
+                            foreach (var item2 in ViewBag.data2 as IEnumerable<Notes.Models.Notedetail>)
+                            {
+                                var a = @item2.reviewlist.Ratings;
+                                <!-- Review 01 -->
+                                <div class="row border-bottom">
+                                    <div class="col-md-2 col-sm-2 col-xs-2 image">
+                                        @if (item2.userprofilelist != null)
+                                        {
+                                            if (item2.userprofilelist.ProfilePicture != "")
+                                            {
+                                                <img src="~/UserFile/UserProfile/@item2.userprofilelist.ProfilePicture" alt="team member">
+                                            }
+                                            else
+                                            {
+                                                <img src="~/img/reviewer-1.png" alt="team member">
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <img src="~/img/reviewer-1.png" alt="team member">
+                                        }
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10 name">
+                                        <h4>@item2.userlist.FirstName @item2.userlist.LastName</h4>
+                                        <div class='rating-stars'>
+                                            <ul id='stars'>
+                                                @for (var i = 1; i <= a; i++)
+                                                {
+                                                    <li class='star' title='Poor' data-value='1'>
+                                                        <img src="~/img/star.png" style="width:12px; height:12px;">
+                                                    </li>
+                                                }
+                                                @for (var i = a; i < 5; i++)
+                                                {
+                                                    <li class='star' title='Poor' data-value='1'>
+                                                        <img src="~/img/star-white.png" style="width:12px; height:12px;">
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                        <p>@item2.reviewlist.Comments</p>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<form id="thanks-popup">
+    <div class="head">
+        <img class="close" src="~/img/close.png" onclick="location.href='@Url.Action("mailnotedetail", "User", new { noteid = @ViewBag.noteid })'" />
+        <img src="~/img/SUCCESS.png">
+        <h2 class="modal-title">Thank you for purchasing!</h2>
+    </div>
+    <div class="body">
+        <h4>Dear @ViewBag.username ,</h4>
+        <p>As this is paid notes - you need to pay to seller @ViewBag.sellername @ViewBag.sellerlastname Offline. We will send him an email that you want to download this note. he may contact you further for payment process completion.</p><p>In case, you have urgency,<br>Please contact us on +9195377734595.</p>
+        <p>once he receives the payment and acknowledge us - selected notes you can see over my downloads tab for download.</p>
+        <p>Have a good day.</p>
+
+    </div>
+</form>

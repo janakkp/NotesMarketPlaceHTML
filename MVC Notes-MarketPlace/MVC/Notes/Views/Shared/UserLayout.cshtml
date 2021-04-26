@@ -1,0 +1,361 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatibility" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- title -->
+    <title>Notes - Market Place</title>
+
+    <!-- Favicon-for icon if website title -->
+    <link rel="shortcut icon" href="~/img/favicon.ico">
+
+    <!-- Google Font -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="@Url.Content("~/content/jquery.rateyo.min.css")" rel="stylesheet" typeof="text/css" />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    @Styles.Render("~/Content/user")
+    @Scripts.Render("~/bundles/user")
+    <style>
+        table {
+            min-width: 1130px;
+        }
+        table .shadow:hover {
+            box-shadow: 2px 2px 3px 3px #ccc;
+            z-index: 2;
+        }
+        table th {
+            color: #6255a5;
+        }
+        table td, table th {
+           font-size:15px;
+        text-align:center;
+        }
+        table td a, table th a {
+        text-decoration:none;
+        }
+        table td a:hover, table th a:hover {
+                text-decoration: none;
+            }
+        .addbutton {
+            float: right;
+            margin: 0;
+            height: 40px;
+            padding: 10px 8px;
+            width: 100px;
+            font-family: "Open Sans", sans-serif;
+            background-color: #6255a5;
+            font-weight: 600;
+            border: none;
+            border-radius: 3px;
+            color: #fff;
+            -webkit-transition: all 300ms linear;
+            transition: all 300ms linear;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+            .addbutton:hover {
+                text-decoration: none;
+                background-color: #6255a5;
+                color: #fff;
+            }
+
+        .userimg {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-top: -5px;
+        }
+
+        .inappropriate {
+            position: fixed;
+            overflow: hidden;
+            left: 50%;
+            top: 70px;
+            background: #fff;
+            position: static;
+            -webkit-transform: translate3d(-50%, 0, 0);
+            transform: translate3d(-50%, 0, 0);
+            display: none;
+            width: 320px;
+            box-shadow: 0px 8px 130px 0px rgba(0,0,0,.2);
+            padding: 10px 20px;
+            z-index: 2;
+            overflow-y: hidden;
+        }
+            .inappropriate .textbox {
+                width: 100%;
+                height: 30px;
+                border:none;
+                margin-bottom: 10px;
+                font-size: 16px;
+                font-family : Arial;
+                font-weight:600;
+                color:#6255a5;
+            }
+
+            .inappropriate textarea {
+                width: 100%;
+                margin-bottom: 10px;
+                font-size: 14px;
+            }
+
+            .inappropriate button {
+                width: 80px;
+                height: 30px;
+                font-family: "Open Sans", sans-serif;
+                background-color: #6255a5;
+                font-weight: 600;
+                border: none;
+                border-radius: 3px;
+                color: #fff;
+                font-size: 14px;
+                line-height: 20px;
+                margin: 10px;
+            }
+        #addreview-popup {
+            position: fixed;
+            overflow: hidden;
+            background: #fff;
+            position: static;
+            -webkit-transform: translate3d(-50%, 0, 0);
+            transform: translate3d(-50%, 0, 0);
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,.2);
+            z-index: 2;
+            overflow-y: hidden;
+        }
+    </style>
+</head>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="65">
+    <div class="content">
+
+        <!-- header -->
+        <header>
+            <nav class="navbar navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="site-nav-wrapper">
+                        <div class="navbar-header">
+                            <!-- Mobile Menu Open Button -->
+                            <span id="mobile-nav-open-btn">&#9776;</span>
+                            <!-- Logo -->
+                            <a class="navbar-brand" onclick='window.location="@Url.Action("Dashboard", "User")"'><img src="~/img/logo.png" alt="logo"></a>
+                        </div>
+                        <!-- Main Menu -->
+                        <div class="container">
+                            <div class="collapse navbar-collapse">
+                                <img class="sample" src="~/img/logo.png" onclick='window.location="@Url.Action("Dashboard", "User")"' alt="logo">
+                                @if (!string.IsNullOrEmpty(Session["usrrole"].ToString()))
+                                {
+                                    <ul class="nav navbar-nav pull-right">
+                                        <li><a class="smooth-scroll a1" onclick='window.location="@Url.Action("Searchnote", "User")"'>Search Notes</a></li>
+                                        <li><a class="smooth-scroll a1" onclick='window.location="@Url.Action("Dashboard", "User")"'>Sell Your Notes </a></li>
+                                        <li><a class="smooth-scroll a1" onclick='window.location="@Url.Action("Buyerrequest", "User")"'>Buyer Reuests</a></li>
+                                        <li><a class="smooth-scroll a1" onclick='window.location="@Url.Action("Faqs", "User")"'>FAQ</a></li>
+                                        <li><a class="smooth-scroll a1" onclick='window.location="@Url.Action("Contactus", "User")"'>Contact Us</a></li>
+                                        <li>
+                                            <div class="dropdown">
+                                                @{
+                                                    var profilephto = Session["Userprofile"];
+                                                    <button class="dropbtn"><img src="~/UserFile/UserProfile/@profilephto" class="userimg"> </button>
+                                                }
+                                                <div class="dropdown-content">
+                                                    <a onclick='window.location="@Url.Action("EditProfile", "User")"'>My Profile</a>
+                                                    <a onclick='window.location="@Url.Action("Mydownloads", "User")"'>My Downloads</a>
+                                                    <a onclick='window.location="@Url.Action("SoldNote", "User")"'>My Sold Notes</a>
+                                                    <a onclick='window.location="@Url.Action("RejectedNote", "User")"'>My Rejected Notes</a>
+                                                    <a onclick='window.location="@Url.Action("ChangePassword", "User")"'>Change Password</a>
+                                                    <a onclick='window.location="@Url.Action("Logout", "User")"'>LOGOUT</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li><a class="smooth-scroll" href="#"><button id="logout" onclick='window.location="@Url.Action("Logout", "User")"'>Logout</button></a></li>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <ul class="nav navbar-nav pull-right">
+                                        <li><a class="smooth-scroll a1" onclick='window.location="@Url.Action("Searchnote","User")"'>Search Notes</a></li>
+                                        <li><a class="smooth-scroll a1" onclick='window.location="@Url.Action("Login","User")"'>Sell Your Notes </a></li>
+                                        <li><a class="smooth-scroll a1" onclick='window.location="@Url.Action("Faqs","User")"'>FAQ</a></li>
+                                        <li><a class="smooth-scroll a1" onclick='window.location="@Url.Action("Contactus","User")"'>Contact Us</a></li>
+                                        <li><a class="smooth-scroll" href="#"><button id="logout" onclick='window.location = "@Url.Action("Login","User")"'>LOGIN</button></a></li>
+                                    </ul>
+
+                                }
+                            </div>
+                        </div>
+                        <!-- Mobile Menu -->
+                        <div id="mobile-nav">
+                            <!-- Mobile Menu Close Button -->
+                            <img id="mobile-nav-logo" src="~/img/logo.png" onclick='window.location="@Url.Action("Dashboard", "User")"' alt="logo">
+                            <span id="mobile-nav-close-btn">&times;</span>
+                            <div id="mobile-nav-content">
+                                @if (!string.IsNullOrEmpty(Session["usrrole"].ToString()))
+                                {
+                                    <ul class="nav">
+                                        <li><a class="smooth-scroll a1" onclick='window.location="@Url.Action("Searchnote", "User")"'>Search Notes</a></li>
+                                        <li><a class="smooth-scroll a1" onclick='window.location="@Url.Action("Dashboard", "User")"'>Sell Your Notes </a></li>
+                                        <li><a class="smooth-scroll a1" onclick='window.location="@Url.Action("Buyerrequest", "User")"'>Buyer Reuests</a></li>
+                                        <li><a class="smooth-scroll a1" onclick='window.location="@Url.Action("Faqs", "User")"'>FAQ</a></li>
+                                        <li><a class="smooth-scroll a1" onclick='window.location="@Url.Action("Contactus", "User")"'>Contact Us</a></li>
+                                        <li>
+                                            <div class="dropdown">
+                                                @{
+                                                    var profilephto1 = Session["Userprofile"];
+                                                    <button class="dropbtn"><img src="~/UserFile/UserProfile/@profilephto1" class="userimg"> </button>
+                                                }
+                                                <div class="dropdown-content">
+                                                    <a onclick='window.location="@Url.Action("EditProfile", "User")"'>My Profile</a>
+                                                    <a onclick='window.location="@Url.Action("Mydownloads", "User")"'>My Downloads</a>
+                                                    <a onclick='window.location="@Url.Action("SoldNote", "User")"'>My Sold Notes</a>
+                                                    <a onclick='window.location="@Url.Action("RejectedNote", "User")"'>My Rejected Notes</a>
+                                                    <a onclick='window.location="@Url.Action("ChangePassword", "User")"'>Change Password</a>
+                                                    <a onclick='window.location="@Url.Action("Logout", "User")"'>LOGOUT</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li><a class="smooth-scroll" href="#"><button id="logout" onclick='window.location="@Url.Action("Logout", "User")"'>Logout</button></a></li>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <ul class="nav">
+                                        <li><a class="smooth-scroll a1" onclick='window.location="@Url.Action("Searchnote","User")"'>Search Notes</a></li>
+                                        <li><a class="smooth-scroll a1" onclick='window.location="@Url.Action("Login","User")"'>Sell Your Notes </a></li>
+                                        <li><a class="smooth-scroll a1" onclick='window.location="@Url.Action("Faqs","User")"'>FAQ</a></li>
+                                        <li><a class="smooth-scroll a1" onclick='window.location="@Url.Action("Contactus","User")"'>Contact Us</a></li>
+                                        <li><a class="smooth-scroll" href="#"><button id="logout" onclick='window.location = "@Url.Action("Login","User")"'>LOGIN</button></a></li>
+                                    </ul>
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <!-- End header -->
+        @RenderBody()
+    </div>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-sm-9 col-xs-8">
+                    <p>Copyright &copy; Tatvasoft All Rights Reserved.</p>
+                </div>
+                @{
+                    var facebook = Session["facebook_url"];
+                    var twitter = Session["twitter_url"];
+                    var linedin = Session["linkedin_url"];
+                }
+
+                <div class="col-md-2 col-sm-3 col-xs-4">
+                    <ul class="social-list">
+                        <li><a href="@facebook"><img src="~/img/facebook.png" /></a></li>
+                        <li><a href="@twitter"><img src="~/img/twitter.png" /></a></li>
+                        <li><a href="@linedin"><img src="~/img/linkedin.png" /></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+    $(function () {
+    $("#rateYo").rateYo({
+    rating: 0,
+    numStars: 5,
+    maxvalue=5,
+    halfstar=true,
+    onChange: function (rating, rateYoInstance) {
+    $('#rating').val(rating);
+    }
+    });
+    });
+        </script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/header.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.js")"></script>
+    <script src="@Url.Content("~/Scripts/script.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.rateyo.min.js")"></script>
+    <script>
+        function openinappropriatepopup(title, id) {
+            var x = document.getElementById("inappropriate-popup");
+            x.style.display = "inline-block";
+            document.getElementById("title").value = title;
+            document.getElementById("id1").value = id;
+            //$(".container").fadeTo(200, 1);            
+            //$(".container").fadeOut(200);            
+        }
+        function closeinappropriatepopup() {
+            var x = document.getElementById("inappropriate-popup");
+            x.style.display = "none";
+            //$(".container").fadeOut(200);            
+        }
+
+        /*Review Pop-Up*/
+        function openreviewpopup(id) {
+            var x = document.getElementById("addreview-popup");
+            x.style.display = "inline-block";
+            document.getElementById("id").value = id;
+        }
+        function closepopup() {
+            var x = document.getElementById("addreview-popup");
+            x.style.display = "none";
+        }
+
+
+        /*RATING SYSTEM*/
+        $(document).ready(function () {
+
+            /* 1. Visualizing things on Hover - See next part for action on click */
+            $('#stars li').on('mouseover', function () {
+                var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+
+                // Now highlight all the stars that's not after the current hovered star
+                $(this).parent().children('li.star').each(function (e) {
+                    if (e < onStar) {
+                        $(this).addClass('hover');
+                    }
+                    else {
+                        $(this).removeClass('hover');
+                    }
+                });
+
+            }).on('mouseout', function () {
+                $(this).parent().children('li.star').each(function (e) {
+                    $(this).removeClass('hover');
+                });
+            });
+            /* 2. Action to perform on click */
+            $('#stars li').on('click', function () {
+                var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+                var stars = $(this).parent().children('li.star');
+
+                for (i = 0; i < stars.length; i++) {
+                    $(stars[i]).removeClass('selected');
+                }
+
+                for (i = 0; i < onStar; i++) {
+                    $(stars[i]).addClass('selected');
+                }
+                var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+                document.getElementById("rating").value = onStar;
+            });
+        });
+        if(ViewBag.error != null){
+                         window.onload = function () {
+                                alert("@ViewBag.error");
+                            };
+}
+    </script>
+</body>
+</html>

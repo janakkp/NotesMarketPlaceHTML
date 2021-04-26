@@ -1,0 +1,120 @@
+﻿@model IEnumerable<Notes.Models.AdminNotes>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Members";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<section id="members">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 col-sm-6 col-xs-12">
+                <h1>Members</h1>
+            </div>
+            <div class="col-md-5 col-sm-6 col-xs-12 search">
+                @using (Html.BeginForm("Members", "Admin", FormMethod.Get))
+                {
+                    <input class="mainLoginInput" type="text" value="@ViewBag.CurrentFilter" name="SearchString" placeholder="&#61442; Search notes here..." />
+                    <button id="submit" type="submit">SEARCH</button>
+                }
+            </div>
+        </div>
+        <div style="overflow-x:auto;">
+            <table class="table">
+                <tr>
+                    <th style="font-size:14px;">
+                        FIRST NAME
+                    </th>
+                    <th>
+                        <a onclick='window.location="@Url.Action("Members","Admin", new { sortOrder = ViewBag.fname, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th style="font-size:14px;">LAST NAME</th>
+                    <th>
+                        <a onclick='window.location="@Url.Action("Members","Admin", new { sortOrder = ViewBag.lname, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+
+                    </th>
+                    <th style="font-size:14px;">EMAIL</th>
+                    <th>
+                        <a onclick='window.location="@Url.Action("Members","Admin", new { sortOrder = ViewBag.email, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th style="font-size:14px;">JOINING DATE</th>
+                    <th>
+                        <a onclick='window.location="@Url.Action("Members","Admin",  new { sortOrder = ViewBag.joiningdate, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th style="font-size:14px;">NOTES UNDER REVIEW</th>
+                    <th>
+                        <a onclick='window.location="@Url.Action("Members","Admin", new { sortOrder = ViewBag.underreviewnote, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th style="font-size:14px;">PUBLISHED NOTES</th>
+                    <th>
+                        <a onclick='window.location="@Url.Action("Members","Admin", new { sortOrder = ViewBag.publishednote, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th style="font-size:14px;">DOWNLOADED NOTES</th>
+                    <th>
+                        <a onclick='window.location="@Url.Action("Members","Admin", new { sortOrder = ViewBag.downloadednote, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th style="font-size:14px;">TOTAL EXPENSE</th>
+                    <th>
+                        <a onclick='window.location="@Url.Action("Members","Admin", new { sortOrder = ViewBag.totalexpence, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th style="font-size:14px;">TOTAL EARNING</th>
+                    <th>
+                        <a onclick='window.location="@Url.Action("Members","Admin", new { sortOrder = ViewBag.totalearning, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th></th>
+                </tr>
+                @{
+                    int a = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr class="shadow">
+                            <td colspan="2">
+                                @Html.DisplayFor(modelItem => item.firstname)
+                            </td>
+                            <td colspan="2">
+                                @Html.DisplayFor(modelItem => item.lastname)
+                            </td>
+                            <td colspan="2">
+                                @Html.DisplayFor(modelItem => item.email)
+                            </td>
+                            <td colspan="2">
+                                @Html.DisplayFor(modelItem => item.joiningdate)
+                            </td>
+                            <td colspan="2">
+                                <a href='@Url.Action("NotesUnderReview", "Admin", new { selectedseller = item.memberid})' style="color:#6255a5">@Html.DisplayFor(modelItem => item.underreviewnote)</a>
+                            </td>
+                            <td colspan="2">
+                                <a href='@Url.Action("Publishednote", "Admin", new { selectedseller = item.memberid})' style="color:#6255a5">@Html.DisplayFor(modelItem => item.publishednote)</a>
+                            </td>
+                            <td colspan="2">
+                                <a href='@Url.Action("DownloadedNotes", "Admin", new { selectedbuyer = item.memberid})' style="color:#6255a5">@Html.DisplayFor(modelItem => item.downloadednote)</a>
+                            </td>
+                            <td colspan="2">
+                                <a href='@Url.Action("DownloadedNotes", "Admin", new { selectedbuyer = item.memberid})' style="color:#6255a5">@Html.DisplayFor(modelItem => item.totalexpense)</a>
+                            </td>
+                            <td colspan="2">
+                                @Html.DisplayFor(modelItem => item.totalearning)
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="dropbtn"> <img src="~/img/dots.png"></button>
+                                    <div class="dropdown-content">
+                                        <a href="@Url.Action("Memberdetail", "Admin", new { id = item.memberid})">View More Details</a>
+                                        @Html.ActionLink("Deactivate", "deactivate", new { id = item.memberid }, new { onclick = "return confirm('Are you sure you want to make this member inactive?');" })
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        a = a + 1;
+                    }
+                }
+            </table>
+        </div>
+        <div style="text-align:center; ">
+            @Html.PagedListPager(Model as PagedList.IPagedList, page => Url.Action("Members",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        </div>
+    </div>
+</section>

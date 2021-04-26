@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Notes.Models.AdminNotes>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "spamreport";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+<section id="spam-report">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 col-sm-6 col-xs-12">
+                <h1>Spam Report</h1>
+            </div>
+            <div class="col-md-5 col-sm-6 col-xs-12 search">
+                @using (Html.BeginForm("spamreport", "Admin", FormMethod.Get))
+                {
+                    <input class="mainLoginInput" type="text" value="@ViewBag.CurrentFilter" name="SearchString" placeholder="&#61442; Search notes here..." />
+                    <button id="submit" type="submit">SEARCH</button>
+                }
+            </div>
+        </div>
+        <div style="overflow-x:auto;">
+            <table>
+                <tr>
+                    <th>NO</th>
+                    <th>
+                        REPORTED BY &nbsp;<a onclick='window.location="@Url.Action("spamreport","Admin", new { sortOrder = ViewBag.reportedby, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        NOTE TITLE &nbsp;<a onclick='window.location="@Url.Action("spamreport","Admin", new { sortOrder = ViewBag.notetitle, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        CATEGORY &nbsp;<a onclick='window.location="@Url.Action("spamreport","Admin", new { sortOrder = ViewBag.category, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        DATE EDITED &nbsp;<a onclick='window.location="@Url.Action("spamreport","Admin", new { sortOrder = ViewBag.dateedited, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        REMARK &nbsp;<a onclick='window.location="@Url.Action("spamreport","Admin", new { sortOrder = ViewBag.remark, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>ACTION</th>
+                    <th></th>
+                </tr>
+                @{ var a = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr class="shadow">
+                            <td style="text-align: center;">
+                                @a
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.reportedby)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.notetitle)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.category)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.dateedited)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.remark)
+                            </td>
+                            <td style="text-align: center;">
+                                @using (Html.BeginForm("spam_delete", "Admin", new { id = item.spamid }))
+                                {
+                                    <button onclick="return confirm('Are you sure you want to delete reported issue ?')" style="all:unset;"><img src="~/img/delete.png" /></button>
+                                }
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="dropbtn"> <img src="~/img/dots.png"></button>
+                                    <div class="dropdown-content">
+                                        <a href="@Url.Action("Download", "Admin", new { id = item.noteid})">Download Notes</a>
+                                        <a href="@Url.Action("Notedetail", "Admin", new { id = item.noteid})">View More Details</a>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                        a = a + 1;
+                    }
+                }
+            </table>
+        </div>
+        <div style="text-align:center; ">
+            @Html.PagedListPager(Model as PagedList.IPagedList, page => Url.Action("spamreport",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        </div>
+    </div>
+</section>

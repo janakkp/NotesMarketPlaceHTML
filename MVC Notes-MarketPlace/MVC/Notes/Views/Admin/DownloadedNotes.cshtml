@@ -1,0 +1,148 @@
+﻿@model IEnumerable<Notes.Models.AdminNotes>
+
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+@{
+    ViewBag.Title = "DownloadedNotes";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<section id="download-notes">
+    <div class="container">
+        <h1>Downloaded Notes</h1>
+        <div class="row">
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                <div class="row">
+                    <div class=" col-md-3 col-sm-3 col-xs-4">
+                        <label>Note *</label>
+                        <div>
+                            @using (Html.BeginForm("DownloadedNotes", "Admin", FormMethod.Get))
+                            {
+                                <input name="SelectedSeller" value="@ViewBag.selectedseller" hidden>
+                                <input name="selectedbuyer" value="@ViewBag.selectedbuyer" hidden>
+                                @Html.DropDownList("selectednote", ViewBag.notedropdown as SelectList, "Select Note", new { @onchange = "this.form.submit()" })
+                            }
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-4">
+                        <label>Seller *</label>
+                        <div>
+                            @using (Html.BeginForm("DownloadedNotes", "Admin", FormMethod.Get))
+                            {
+                                <input name="selectednote" value="@ViewBag.selectednote" hidden>
+                                <input name="selectedbuyer" value="@ViewBag.selectedbuyer" hidden>
+                                @Html.DropDownList("selectedseller", ViewBag.sellerdropdown as SelectList, "Select Seller", new { @onchange = "this.form.submit()" })
+                            }
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-4">
+                        <label>Buyer *</label>
+                        <div>
+                            @using (Html.BeginForm("DownloadedNotes", "Admin", FormMethod.Get))
+                            {
+                                <input name="selectednote" value="@ViewBag.selectednote" hidden>
+                                <input name="SelectedSeller" value="@ViewBag.selectedseller" hidden>
+                                @Html.DropDownList("selectedbuyer", ViewBag.buyerdropdown as SelectList, "Select Buyer", new { @onchange = "this.form.submit()" })
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-5 col-xs-12 search">
+                @using (Html.BeginForm("DownloadedNotes", "Admin", FormMethod.Get))
+                {
+                    <input name="selectedbuyer" value="@ViewBag.selectedbuyer" hidden>
+                    <input name="selectednote" value="@ViewBag.selectednote" hidden>
+                    <input name="SelectedSeller" value="@ViewBag.selectedseller" hidden>
+                    <input class="mainLoginInput" type="text" value="@ViewBag.CurrentFilter" name="SearchString" placeholder="&#61442; Search notes here..." />
+                    <button id="submit" type="submit">SEARCH</button>
+                }
+            </div>
+        </div>
+        <div style="overflow-x:auto;">
+            <table>
+                <tr>
+                    <th>
+                        NO.
+                    </th>
+                    <th>
+                        TITLE &nbsp;<a onclick='window.location="@Url.Action("DownloadedNotes","Admin", new { sortOrder = ViewBag.title, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller, Selectedbuyer = ViewBag.selectedbuyer, Selectednote = ViewBag.selectednote })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        CATEGORY &nbsp;<a onclick='window.location="@Url.Action("DownloadedNotes","Admin", new { sortOrder = ViewBag.category, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller, Selectedbuyer = ViewBag.selectedbuyer, Selectednote = ViewBag.selectednote })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        BUYER &nbsp;<a onclick='window.location="@Url.Action("DownloadedNotes","Admin", new { sortOrder = ViewBag.buyer, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller, Selectedbuyer = ViewBag.selectedbuyer, Selectednote = ViewBag.selectednote })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th></th>
+                    <th>
+                        SELLER &nbsp;<a onclick='window.location="@Url.Action("DownloadedNotes","Admin", new { sortOrder = ViewBag.seller, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller, Selectedbuyer = ViewBag.selectedbuyer, Selectednote = ViewBag.selectednote })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th></th>
+                    <th>
+                        SELL TYPE &nbsp;<a onclick='window.location="@Url.Action("DownloadedNotes","Admin", new { sortOrder = ViewBag.selltype, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller, Selectedbuyer = ViewBag.selectedbuyer, Selectednote = ViewBag.selectednote })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        PRICE &nbsp;<a onclick='window.location="@Url.Action("DownloadedNotes","Admin", new { sortOrder = ViewBag.price, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller, Selectedbuyer = ViewBag.selectedbuyer, Selectednote = ViewBag.selectednote })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        DOWNLOADED DATE &nbsp;<a onclick='window.location="@Url.Action("DownloadedNotes","Admin", new { sortOrder = ViewBag.downloaddate, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller, Selectedbuyer = ViewBag.selectedbuyer, Selectednote = ViewBag.selectednote })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th></th>
+                </tr>
+                @{
+                    int a = 1;
+
+                    foreach (var item in Model)
+                    {
+
+                        <tr class="shadow">
+                            <td>@a</td>
+                            <td>
+                                <a href='@Url.Action("Notedetail", "Admin", new { id = item.noteid})' style="color:#6255a5">@Html.DisplayFor(modelItem => item.title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.category)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.buyer)
+                            </td>
+                            <td><img src="~/img/eye.png" onclick="location.href='@Url.Action("memberdetail", "Admin", new { id = item.buyerid })'"></td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.seller)
+                            </td>
+                            <td><img src="~/img/eye.png" onclick="location.href='@Url.Action("memberdetail", "Admin", new { id = item.sellerid })'"></td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.selltype)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.downloaddate)
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="dropbtn"> <img src="~/img/dots.png"></button>
+                                    <div class="dropdown-content">
+                                        <a href="@Url.Action("Download", "Admin", new { id = item.noteid })">Download Notes</a>
+                                        <a href="@Url.Action("Notedetail", "Admin", new { id = item.noteid })">View More Details</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        a = a + 1;
+                    }
+                }
+            </table>
+        </div>
+        <div style="text-align:center; ">
+            @Html.PagedListPager(Model as PagedList.IPagedList, page => Url.Action("DownloadedNotes",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller, Selectedbuyer = ViewBag.selectedbuyer, Selectednote = ViewBag.selectednote }))
+        </div>
+    </div>
+
+</section>
+

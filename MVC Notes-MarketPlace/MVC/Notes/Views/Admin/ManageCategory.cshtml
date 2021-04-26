@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Notes.Models.AdminSetting>
+
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "ManageCategory";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<section id="manage-type">
+    <div class="container">
+        <h1>Manage Category</h1>
+        <div class="row">
+            <div class="col-md-7 col-sm-6 col-xs-12">
+                <button id="submit" onclick="location.href='@Url.Action("add_category", "Admin")'" type="submit">ADD CATEGORY</button>
+            </div>
+            <div class="col-md-5 col-sm-6 col-xs-12 search">
+                @using (Html.BeginForm("ManageCategory", "Admin", FormMethod.Get))
+                {
+                    <input class="mainLoginInput" type="text" value="@ViewBag.CurrentFilter" name="SearchString" placeholder="&#61442; Search notes here..." />
+                    <button id="submit" type="submit">SEARCH</button>
+                }
+            </div>
+        </div>
+        <div style="overflow-x:auto;">
+            <table class="table">
+                <tr>
+                    <th>NO</th>
+                    <th>
+                        NAME &nbsp;<a onclick='window.location="@Url.Action("ManageCategory","Admin", new { sortOrder = ViewBag.name, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        DESCRIPTION &nbsp;<a onclick='window.location="@Url.Action("ManageCategory","Admin", new { sortOrder = ViewBag.description, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        DATE ADDED &nbsp;<a onclick='window.location="@Url.Action("ManageCategory","Admin", new { sortOrder = ViewBag.addeddate, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        ADDED BY &nbsp;<a onclick='window.location="@Url.Action("ManageCategory","Admin", new { sortOrder = ViewBag.addedby, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        ACTIVE &nbsp;<a onclick='window.location="@Url.Action("ManageCategory","Admin", new { sortOrder = ViewBag.active, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                @{
+                    var a = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr class="shadow">
+                            <td>
+                                @a
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.addeddate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.addedby)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.active)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("edit_category", "Admin", new { id = item.id})"><img src="~/img/edit.png" /></a>
+                            </td>
+                            <td>
+                                @using (Html.BeginForm("Delete_category", "Admin", new { id = item.id }))
+                                {
+                                    <button onclick="return confirm('Are you sure you want to deactive this category?')" style="all:unset;"><img src="~/img/delete.png" /></button>
+                                }
+                            </td>
+                        </tr>
+                        a = a + 1;
+                    }
+                }
+            </table>
+        </div>
+        <div style="text-align:center; ">
+            @Html.PagedListPager(Model as PagedList.IPagedList, page => Url.Action("ManageCategory",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        </div>
+    </div>
+</section>

@@ -1,0 +1,74 @@
+﻿@model PagedList.IPagedList<Notes.Models.UserBuyerSoldRejectedDownloadDashboardNotes>
+
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+<section id="dashboard-2">
+    <div id="table" class="manage-administrator">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-sm-6 col-xs-12">
+                    <h2>In Process Notes</h2>
+                </div>
+                <div class="col-md-5 col-sm-6 col-xs-12 search">
+                    @using (Html.BeginForm("Dashboard", "User", FormMethod.Get))
+                    {
+                        <input class="mainLoginInput" type="text" value="@ViewBag.CurrentFilter" name="SearchString" placeholder="Search notes here..." />
+                        <button id="submit" type="submit">SEARCH</button>
+                    }
+                </div>
+            </div>
+            <div style="overflow-x:auto;">
+                <table class="table">
+                    <tr>
+                        <th style="width:25%;">ADDED DATE &nbsp;<a onclick='window.location="@Url.Action("Dashboard","User", new { sortOrder = ViewBag.date, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a></th>
+                        <th style="width:25%;">TITLE &nbsp;<a onclick='window.location="@Url.Action("Dashboard", "User", new { sortOrder = ViewBag.title, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a></th>
+                        <th style="width:20%;">CATEGORY &nbsp;<a onclick='window.location="@Url.Action("Dashboard", "User", new { sortOrder = ViewBag.category, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a></th>
+                        <th style="width:20%;">STATUS &nbsp;<a onclick='window.location="@Url.Action("Dashboard", "User", new { sortOrder = ViewBag.status, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a></th>
+                        <th style="text-align: center; width:10%" colspan="2">ACTION</th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="shadow">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.addeddate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.category)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.status)
+                            </td>
+                            @if (item.statusid == 6)
+                            {
+                                <td style="text-align: center;">
+                                    <img src="~/img/edit.png" onclick="location.href='@Url.Action("Editnote", "User", new { noteid = item.noteid })'" />&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    @using (Html.BeginForm("Delete", "User", new { id = item.noteid }))
+                                    {
+                                        <button onclick="return confirm('Are you sure you want to delete this note?')" style="all:unset;"><img src="~/img/delete.png" /></button>
+                                    }
+                                </td>
+                            }
+                            else
+                            {
+                                <td style="text-align: center;" colspan="2"><img src="~/img/eye.png" onclick="location.href='@Url.Action("Notedetail", "User", new { id = item.noteid })'" /></td>
+                            }
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <div style="text-align:center; ">
+
+                @Html.PagedListPager(Model, page => Url.Action("Dashboard",
+                                          new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+            </div>
+        </div>
+    </div>
+</section>
+

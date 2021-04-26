@@ -1,0 +1,142 @@
+﻿@model IEnumerable<Notes.Models.AdminNotes>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<section id="published-notes">
+    <div class="container">
+        <h1>Published Notes</h1>
+        <div class="row">
+            <div class="col-md-7 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label>seller *</label>
+                    <div>
+                        @using (Html.BeginForm("PublishedNote", "Admin", FormMethod.Get))
+                        {
+                            @Html.DropDownList("selectedseller", ViewBag.userdropdown as SelectList, "Select Seller", new { @onchange = "this.form.submit()" })
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-6 col-xs-12 search">
+                @using (Html.BeginForm("PublishedNote", "Admin", FormMethod.Get))
+                {
+                    <input name="SelectedSeller" value="@ViewBag.selectedseller" hidden>
+                    <input class="mainLoginInput" type="text" value="@ViewBag.CurrentFilter" name="SearchString" placeholder="&#61442; Search notes here..." />
+                    <button id="submit" type="submit">SEARCH</button>
+                }
+            </div>
+        </div>
+        <div style="overflow-x:auto;">
+
+            <table>
+                <tr>
+                    <th>
+                        NO.
+                    </th>
+                    <th>
+                        TITLE &nbsp;<a onclick='window.location="@Url.Action("PublishedNote","Admin", new { sortOrder = ViewBag.title, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        CATEGORY &nbsp;<a onclick='window.location="@Url.Action("PublishedNote","Admin", new { sortOrder = ViewBag.category, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        SELL TYPE &nbsp;<a onclick='window.location="@Url.Action("PublishedNote","Admin", new { sortOrder = ViewBag.selltype, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        PRICE &nbsp;<a onclick='window.location="@Url.Action("PublishedNote","Admin", new { sortOrder = ViewBag.price, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        SELLER &nbsp;<a onclick='window.location="@Url.Action("PublishedNote","Admin",new { sortOrder = ViewBag.seller, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                        PUBLISHED DATE &nbsp;<a onclick='window.location="@Url.Action("PublishedNote","Admin", new { sortOrder = ViewBag.publisheddate, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        APPROVED BY &nbsp;<a onclick='window.location="@Url.Action("PublishedNote","Admin", new { sortOrder = ViewBag.approveby, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        DOWNLOADS NO &nbsp;<a onclick='window.location="@Url.Action("PublishedNote","Admin",new { sortOrder = ViewBag.noofdown, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th>
+                        ACTION
+                    </th>
+                </tr>
+                @{
+                    int a = 1;
+
+                    foreach (var item in Model)
+                    {
+                        <tr class="shadow">
+                            <td style="text-align:center;">
+                                @a
+                            </td>
+                            <td>
+                                <a href='@Url.Action("Notedetail", "Admin", new { id = item.noteid})' style="color:#6255a5">@Html.DisplayFor(modelItem => item.title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.category)
+                            </td>
+                            <td style="text-align:center;">
+                                @Html.DisplayFor(modelItem => item.selltype)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.seller)
+                            </td>
+                            <td><img src="~/img/eye.png" onclick="location.href='@Url.Action("memberdetail", "Admin", new { id = item.sellerid})'"></td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.publisheddate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.approvedby)
+                            </td>
+                            <td style="text-align:center;">
+                                <a href='@Url.Action("DownloadedNotes", "Admin", new { selectednote = item.noteid})' style="color:#6255a5">@Html.DisplayFor(modelItem => item.noofdownload)</a>
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="dropbtn"> <img src="~/img/dots.png"></button>
+                                    <div class="dropdown-content">
+                                        <a href="@Url.Action("Download", "Admin", new { id = item.noteid})">Download Notes</a>
+                                        <a href="@Url.Action("Notedetail", "Admin", new { id = item.noteid})">View More Details</a>
+                                        <a onclick="unpublishpopup('@item.title','@item.noteid')">Unpublish</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        a = a + 1;
+                    }
+                }
+            </table>
+        </div>
+        <div style="text-align:center; ">
+            @Html.PagedListPager(Model as PagedList.IPagedList, page => Url.Action("PublishedNote",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, SelectedSeller = ViewBag.selectedseller }))
+        </div>
+</section>
+<form method="post" action="@Url.Action("Published_Unpublish", "Admin")" class="inappropriate" id="unpublish-popup" style="position:fixed;">
+    <img class="close" src="~/img/close.png" onclick="location.href='@Url.Action("Publishednote", "Admin")'" />
+    <h2>Unpublished Notes</h2><br>
+    <input type="text" class="textbox" name="id" id="id1" readonly hidden />
+    <label>Title</label>
+    <input type="text" class="textbox" id="title" readonly />
+    <label>Remark*</label>
+    <textarea class="textarea" name="remark" rows="4" required></textarea>
+    <button type="submit" onclick="return confirm('“Are you sure you want to Unpublish this note?');">Submit</button>
+</form>
+
+
+
+
+
+
+
+

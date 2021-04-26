@@ -1,0 +1,114 @@
+﻿@model Notes.Models.Adminmyprofile
+
+@{
+    ViewBag.Title = "Myprofile";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("Myprofile", "Admin", FormMethod.Post, new
+{
+    enctype = "multipart/form-data"
+}))
+{
+    @Html.AntiForgeryToken()
+
+
+    <section id="my-profile">
+        <div class="container">
+            <h1>My Profile</h1>
+            <div class="row">
+                <div class="col-md-6 col-sm-9 col-xs-12">
+                    <div class="form-group">
+                        <label>First Name *</label>
+                        <div>
+                            <input type="text" class="form-control" name="firstname" value="@ViewBag.fname">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name *</label>
+                        <div>
+                            <input type="text" class="form-control" name="lastname" value="@ViewBag.lname">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <div>
+                            <input type="text" class="form-control" name="email" value="@ViewBag.email" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Secondary Email</label>
+                        <div>
+                            @if (ViewBag.secondaryemail == null)
+                            {
+                                <input type="text" class="form-control" name="secondaryemail" value="" placeholder="Enter your email address">
+                            }
+                            else
+                            {
+                                <input type="text" class="form-control" name="secondaryemail" value="@ViewBag.secondaryemail">
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        @if (ViewBag.phoneno == null)
+                        {
+                            <div class="row">
+                                <div class="col-md-2 col-sm-3 col-xs-3">
+                                    <select name="phonecode" id="phonecode" class="form-control">
+                                        <option value=""></option>
+                                        <option data-countryCode="GB" value=44>(+44)</option>
+                                        <option data-countryCode="IN" value=91>(+91)</option>
+                                    </select>
+                                    @Html.ValidationMessageFor(model => model.phonecode, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-10 col-sm-9 col-xs-9">
+                                    @Html.EditorFor(model => model.phonenumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter your phone number" } })
+                                    @Html.ValidationMessageFor(model => model.phonenumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-md-2 col-sm-3 col-xs-3">
+                                    <select name="phonecode" id="phonecode" class="form-control">
+                                        <option data-countryCode="GB" value="@ViewBag.phonecode" selected>@ViewBag.phonecode</option>
+                                        <option data-countryCode="GB" value=44>(+44)</option>
+                                        <option data-countryCode="IN" value=91>(+91)</option>
+                                    </select>
+                                    @Html.ValidationMessageFor(model => model.phonecode, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-10 col-sm-9 col-xs-9">
+                                    <input type="text" class="form-control" name="PhoneNumber" value="@ViewBag.phoneno">
+                                    @Html.ValidationMessageFor(model => model.phonenumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label>Profile Picture</label>
+                        <div class="drop-zone">
+                            @if (ViewBag.profilepic != null)
+                            {
+                                <span class="drop-zone__prompt"><img src="~/UserFile/UserProfile/@ViewBag.profilepic"><br>@ViewBag.profilepic</span>
+                            }
+                            else
+                            {
+                                <span class="drop-zone__prompt"><img src="~/img/upload-file.png"><br>Upload your notes</span>
+                            }
+                            <input type="file" name="UserProfilePic" class="drop-zone__input" style="display: none;" accept="image/*">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="submit">SUBMIT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+}
+

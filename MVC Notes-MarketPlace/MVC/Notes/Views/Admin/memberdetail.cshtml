@@ -1,0 +1,166 @@
+﻿@model IEnumerable<Notes.Models.AdminNotes>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "memberdetail";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<section id="member-detail">
+    <div id="table" class="manage-administrator note-under-review">
+        <div class="container">
+            <h1>Member Details</h1>
+            <div class="row border-bottom">
+                <div class="col-md-1 col-sm-12 col-xs-3">
+                    @if (ViewBag.memberdetail2 != null && ViewBag.memberdetail2.ProfilePicture != "")
+                    {
+                        <img class="member-img" src="~/UserFile/UserProfile/@ViewBag.memberdetail2.ProfilePicture">
+                    }
+                    else
+                    {
+                        <img class="member-img" src="~/img/customer-4.png">
+                    }
+                </div>
+                <div class="col-md-11 col-sm-12 col-xs-9">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12 border-right">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-5 col-xs-5">First Name:</div>
+                                <div class="col-md-8 col-sm-7 col-xs-7">@ViewBag.memberdetail1.FirstName</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-5 col-xs-5">Last Name:</div>
+                                <div class="col-md-8 col-sm-7 col-xs-7">@ViewBag.memberdetail1.LastName</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-5 col-xs-5">Email:</div>
+                                <div class="col-md-8 col-sm-7 col-xs-7">@ViewBag.memberdetail1.EmailID</div>
+                            </div>
+                            @if (ViewBag.memberdetail2 != null)
+                            {
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-5 col-xs-5">DOB:</div>
+                                    <div class="col-md-8 col-sm-7 col-xs-7">@ViewBag.memberdetail2.DOB</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-5 col-xs-5">Phone Number:</div>
+                                    <div class="col-md-8 col-sm-7 col-xs-7">@ViewBag.memberdetail2.PhoneNumber</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-5 col-xs-5">College/University:</div>
+                                    <div class="col-md-8 col-sm-7 col-xs-7">@ViewBag.memberdetail2.University @ViewBag.memberdetail2.College</div>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @if (ViewBag.memberdetail2 != null)
+                            {
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-5 col-xs-5">Address 1:</div>
+                                    <div class="col-md-8 col-sm-7 col-xs-7">@ViewBag.memberdetail2.AddressLine1</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-5 col-xs-5">Address 2:</div>
+                                    <div class="col-md-8 col-sm-7 col-xs-7">@ViewBag.memberdetail2.AddressLine2</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-5 col-xs-5">City:</div>
+                                    <div class="col-md-8 col-sm-7 col-xs-7">@ViewBag.memberdetail2.City</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-5 col-xs-5">State:</div>
+                                    <div class="col-md-8 col-sm-7 col-xs-7">@ViewBag.memberdetail2.State</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-5 col-xs-5">Country:</div>
+                                    <div class="col-md-8 col-sm-7 col-xs-7">@ViewBag.memberdetail2.Country</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-5 col-xs-5">Zip Code:</div>
+                                    <div class="col-md-8 col-sm-7 col-xs-7">@ViewBag.memberdetail2.ZipCode</div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="overflow-x:auto;">
+                <h3>Notes</h3>
+                <table>
+                    <tr>
+                        <th>NO.</th>
+                        <th>
+                            TITLE &nbsp;<a onclick='window.location="@Url.Action("memberdetail","Admin", new { sortOrder = ViewBag.title, id = ViewBag.usrid })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                        </th>
+                        <th>
+                            CATEGORY &nbsp;<a onclick='window.location="@Url.Action("memberdetail","Admin", new { sortOrder = ViewBag.category, id = ViewBag.usrid })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                        </th>
+                        <th>
+                            STATUS &nbsp;<a onclick='window.location="@Url.Action("memberdetail","Admin", new { sortOrder = ViewBag.status, id = ViewBag.usrid })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                        </th>
+                        <th>
+                            DOWNLOADED NOTES
+                        </th>
+                        <th>
+                            TOTAL EARNING &nbsp;<a onclick='window.location="@Url.Action("memberdetail","Admin", new { sortOrder = ViewBag.totalearning, id = ViewBag.usrid })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                        </th>
+                        <th>
+                            DATE ADDED &nbsp;<a onclick='window.location="@Url.Action("memberdetail","Admin", new { sortOrder = ViewBag.dateadded, id = ViewBag.usrid })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                        </th>
+                        <th>
+                            PUBISHED DATE &nbsp;<a onclick='window.location="@Url.Action("memberdetail","Admin", new { sortOrder = ViewBag.publisheddate, id = ViewBag.usrid })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                        </th>
+                        <th></th>
+                    </tr>
+                    @{
+                        int a = 1;
+
+                        foreach (var item in Model)
+                        {
+
+                            <tr class="shadow">
+                                <td>@a</td>
+                                <td>
+                                    <a href='@Url.Action("Notedetail", "Admin", new { id = item.noteid})' style="color:#6255a5">@Html.DisplayFor(modelItem => item.title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.category)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.status)
+                                </td>
+                                <td>
+                                    <a href='@Url.Action("DownloadedNotes", "Admin", new { selectednote = item.noteid})' style="color:#6255a5">@Html.DisplayFor(modelItem => item.downloadednote)</a>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.totalearning)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.addeddate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.publishdate)
+                                </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="dropbtn"> <img src="~/img/dots.png"></button>
+                                        <div class="dropdown-content">
+                                            <a href="@Url.Action("Download", "Admin", new { id = item.noteid })">Download Notes</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            a = a + 1;
+                        }
+                    }
+                </table>
+            </div>
+            <div style="text-align:center; ">
+                @Html.PagedListPager(Model as PagedList.IPagedList, page => Url.Action("memberdetail",
+        new { page, sortOrder = ViewBag.CurrentSort, id = ViewBag.usrid }))
+            </div>
+        </div>
+    </div>
+</section>

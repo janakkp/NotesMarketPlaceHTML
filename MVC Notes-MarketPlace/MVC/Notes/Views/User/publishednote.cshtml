@@ -1,0 +1,68 @@
+﻿@model PagedList.IPagedList<Notes.Models.UserBuyerSoldRejectedDownloadDashboardNotes>
+
+
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<style>
+    a.my-class {
+        color: #333333
+    }
+    </style>
+
+<section id="dashboard-2">
+    <div id="table" class="manage-administrator">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-sm-6 col-xs-12">
+                    <h2>Published Notes</h2>
+                </div>
+                <div class="col-md-5 col-sm-6 col-xs-12 search">
+                    @using (Html.BeginForm("Dashboard", "User", FormMethod.Get))
+                    {
+                        <input class="mainLoginInput" type="text" value="@ViewBag.CurrentFilter1" name="SearchString1" placeholder="Search notes here..." />
+                        <button id="submit" type="submit">SEARCH</button>
+                    }
+                </div>
+            </div>
+            <div style="overflow-x:auto;">
+                <table class="table">
+                    <tr>
+                        <th style="width:20%;">ADDED DATE &nbsp;<a onclick='window.location="@Url.Action("Dashboard","User", new { sortOrder1 = ViewBag.date1, currentFilter1 = ViewBag.CurrentFilter1})"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a></th>
+                        <th style="width:25%;">TITLE &nbsp;<a onclick='window.location="@Url.Action("Dashboard","User", new { sortOrder1 = ViewBag.title1, currentFilter1 = ViewBag.CurrentFilter1 })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a></th>
+                        <th style="width:15%;">CATEGORY &nbsp;<a onclick='window.location="@Url.Action("Dashboard","User", new { sortOrder1 = ViewBag.category1, currentFilter1 = ViewBag.CurrentFilter1 })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a></th>
+                        <th style="width:15%;">SELL TYPE &nbsp;<a onclick='window.location="@Url.Action("Dashboard","User", new { sortOrder1 = ViewBag.selltype1, currentFilter1 = ViewBag.CurrentFilter1})"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a></th>
+                        <th style="width:15%;">PRICE &nbsp;<a onclick='window.location="@Url.Action("Dashboard","User", new { sortOrder1 = ViewBag.price1, currentFilter1 = ViewBag.CurrentFilter1 })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a></th>
+                        <th style="text-align: center; width:10%;">ACTION</th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr class="shadow">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.addeddate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.category)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.selltype)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.price)
+                            </td>
+                            <td style="text-align: center;"><img src="~/img/eye.png" onclick="location.href='@Url.Action("Notedetail", "User", new { id = item.noteid })'" /></td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <div style="text-align:center; ">
+                @Html.PagedListPager(Model, page1 => Url.Action("Dashboard",
+                                            new { page1, sortOrder1 = ViewBag.CurrentSort1, currentFilter1 = ViewBag.CurrentFilter1 }))
+            </div>
+        </div>
+    </div>
+</section>

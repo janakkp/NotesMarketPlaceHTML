@@ -1,0 +1,250 @@
+﻿@model Notes.Models.Userprofile
+
+
+@{
+    ViewBag.Title = "EditProfile";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<h2>UserProfile</h2>
+
+
+@using (Html.BeginForm("EditProfile", "User", FormMethod.Post, new
+{
+    enctype = "multipart/form-data"
+}))
+{
+    @Html.AntiForgeryToken()
+    <div id="userprofile">
+        <section id="banner">
+            <div id="banner-heading">
+                <h1>User Profile</h1>
+            </div>
+        </section>
+        @if (ViewBag.Message != null)
+        {
+            <script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+            </script>
+
+        }
+
+        <section id="userprofile-section1">
+            <div class="container">
+                <h2>Basic Profile Detail</h2>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>First Name*</label>
+                            <div>
+                                <input type="text" class="form-control" name="FirstName" placeholder="@ViewBag.FirstName" value="@ViewBag.FirstName">
+                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Last Name*</label>
+                            <div>
+                                <input type="text" class="form-control" name="LastName" placeholder="@ViewBag.LastName" value="@ViewBag.LastName">
+                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Email*</label>
+                            <div>
+                                <input type="text" class="form-control" name="SecondaryEmailAddress" placeholder="@ViewBag.SecondaryEmailAddress" value="@ViewBag.SecondaryEmailAddress">
+                                @Html.ValidationMessageFor(model => model.SecondaryEmailAddress, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Date Of Birth</label>
+                            <div>
+                                <input type="text" class="form-control" name="DOB" placeholder="@ViewBag.DOB" value="@ViewBag.DOB">
+                                @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <div>
+                                @if (ViewBag.Gender == 1)
+                                {
+                                    <select id="gender" name="Gender">
+                                        <option value="">Select Gender</option>
+                                        <option value=1 selected>Male</option>
+                                        <option value=2>Female</option>
+                                    </select>
+
+                                }
+                                else if (ViewBag.Gender == 2)
+                                {
+                                    <select id="gender" name="Gender">
+                                        <option value="">Select Gender</option>
+                                        <option value=1>Male</option>
+                                        <option value=2 selected>Female</option>
+                                    </select>
+                                }
+                                else
+                                {
+                                    <select id="gender" name="Gender">
+                                        <option value="">Select Gender</option>
+                                        <option value=1>Male</option>
+                                        <option value=2>Female</option>
+                                    </select>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <div class="row">
+                                <div class="col-md-2 col-sm-3 col-xs-3">
+                                    <select name="PhoneNumberCountryCode" id="phonecode" placeholder="@ViewBag.PhoneNumberCountryCode">
+                                        <option value="@ViewBag.PhoneNumberCountryCode" selected>@ViewBag.PhoneNumberCountryCode</option>
+                                        <option data-countryCode="GB" value=44>(+44)</option>
+                                        <option data-countryCode="IN" value=91>(+91)</option>
+                                    </select>
+                                    @Html.ValidationMessageFor(model => model.PhoneNumberCountryCode, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-10 col-sm-9 col-xs-9">
+                                    <input type="text" class="form-control" name="PhoneNumber" placeholder="@ViewBag.PhoneNumber" value="@ViewBag.PhoneNumber">
+                                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>User Picture</label>
+                            <div class="drop-zone">
+                                @if (!string.IsNullOrEmpty(ViewBag.Path))
+                                {
+                                    <span class="drop-zone__prompt"><img src="~/UserFile/UserProfile/@ViewBag.Path"><br>@ViewBag.Path</span>
+                                }
+                                else
+                                {
+                                    <span class="drop-zone__prompt"><img src="~/img/upload-note.png"><br>Upload Pofile Picture</span>
+                                }
+                                <input type="file" name="UserProfilePic" class="drop-zone__input" style="display:none;" accept="image/*">
+                                @Html.ValidationMessageFor(model => model.UserProfilePic, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="userprofile-section2">
+            <div class="container">
+                <h2>Address Details</h2>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Address Line 1*</label>
+                            <div>
+                                <input type="text" class="form-control" name="AddressLine1" placeholder="@ViewBag.AddressLine1" value="@ViewBag.AddressLine1">
+                                @Html.ValidationMessageFor(model => model.AddressLine1, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Address line 2*</label>
+                            <div>
+                                <input type="text" class="form-control" name="AddressLine2" placeholder="@ViewBag.AddressLine2" value="@ViewBag.AddressLine2">
+                                @Html.ValidationMessageFor(model => model.AddressLine2, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>City*</label>
+                            <div>
+                                <input type="text" class="form-control" name="City" placeholder="@ViewBag.City" value="@ViewBag.City">
+                                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>State*</label>
+                            <div>
+                                <input type="text" class="form-control" name="State" placeholder="@ViewBag.State" value="@ViewBag.State">
+                                @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>ZipCode*</label>
+                            <div>
+                                <input type="text" class="form-control" name="ZipCode" placeholder="@ViewBag.ZipCode" value="@ViewBag.ZipCode">
+                                @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Country*</label>
+                            <div>
+                                <input type="text" class="form-control" name="Country" placeholder="@ViewBag.Country" value="@ViewBag.Country">
+                                @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="userprofile-section3">
+            <div class="container">
+                <h2>University and College Information</h2>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>University</label>
+                            <div>
+                                <input type="text" class="form-control" name="University" placeholder="@ViewBag.University" value="@ViewBag.University">
+                                @Html.ValidationMessageFor(model => model.University, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>College</label>
+                            <div>
+                                <input type="text" class="form-control" name="College" placeholder="@ViewBag.College" value="@ViewBag.College">
+                                @Html.ValidationMessageFor(model => model.College, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container" id="userprofile-section4">
+            <button id="button" type="submit">SUBMIT</button>
+        </section>
+    </div>
+}

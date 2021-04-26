@@ -1,0 +1,105 @@
+﻿@model Notes.Models.ContactUs
+
+@{
+    ViewBag.Title = "Contactus";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div id="contact-us">
+        <section id="banner">
+            <div id="banner-heading">
+                <h1>Contact Us</h1>
+            </div>
+        </section>
+        <section id="contactus1">
+            <div class="container">
+                <h2>Get in Touch</h2>
+                <h6>Let us Know how to get back to you</h6>
+                @if (ViewBag.error != null)
+                {
+                    <script type="text/javascript">
+                         window.onload = function () {
+                                alert("@ViewBag.error");
+                            };
+                    </script>
+                }
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <label>Full Name *</label>
+                            <div>
+                                @if (ViewBag.name != null)
+                                {
+                                    <input type="text" name="FirstName" placeholder="@ViewBag.name" value="@ViewBag.name" class="form-control" />
+                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+
+                                }
+                                else
+                                {
+                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address *</label>
+                            <div>
+                                @if (ViewBag.email != null)
+                                {
+                                    <input type="text" name="EmailID" placeholder="@ViewBag.email" value="@ViewBag.email" class="form-control" readonly />
+                                    @Html.ValidationMessageFor(model => model.EmailID, "", new { @class = "text-danger" })
+
+                                }
+                                else
+                                {
+                                    @Html.EditorFor(model => model.EmailID, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.EmailID, "", new { @class = "text-danger" })
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Subject *</label>
+                            <div>
+                                @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Comments / Questions *</label>
+                            <div>
+                                <textarea name="Comment" rows=8 placeholder="comments"></textarea>
+                                @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="contactus-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button id="button" type="submit" class="submit">SUBMIT</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    if (ViewBag.Success != null)
+    {
+        <script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Success");
+            };
+        </script>
+
+    }
+
+}

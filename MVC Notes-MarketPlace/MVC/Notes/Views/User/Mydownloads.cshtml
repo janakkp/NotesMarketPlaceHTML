@@ -1,0 +1,144 @@
+﻿@model PagedList.IPagedList<Notes.Models.UserBuyerSoldRejectedDownloadDashboardNotes>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Mydownloads";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+@if (TempData["Mydownload"] != null)
+{
+    <script>alert('@TempData["Mydownload"]');</script>
+}
+
+<section id="my-soldnotes">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 col-sm-6 col-xs-12">
+                <h2>My Downloads</h2>
+            </div>
+            <div class="col-md-5 col-sm-6 col-xs-12 search">
+                @using (Html.BeginForm("Mydownloads", "User", FormMethod.Get))
+                {
+                    <input class="mainLoginInput" type="text" value="@ViewBag.CurrentFilter" name="SearchString" placeholder="Search notes here..." />
+                    <button id="submit" type="submit">SEARCH</button>
+                }
+            </div>
+
+        </div>
+        <div style="overflow-x:auto;">
+            <table>
+                <tr>
+                    <th style="text-align: center; width:5%;"><a style="color:#6255a5;">NO.</a></th>
+                    <th style="width:15%;">
+                        NOTE TITLE &nbsp;<a onclick='window.location="@Url.Action("Mydownloads","User", new { sortOrder = ViewBag.title, currentFilter = ViewBag.CurrentFilter})"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th style="width:14%;">
+                        CATEGORY &nbsp;<a onclick='window.location="@Url.Action("Mydownloads","User", new { sortOrder = ViewBag.category, currentFilter = ViewBag.CurrentFilter})"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th style="width:20%;">
+                        SELLER &nbsp;<a onclick='window.location="@Url.Action("Mydownloads","User", new { sortOrder = ViewBag.email, currentFilter = ViewBag.CurrentFilter })"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th style="width:15%;">
+                        SELL TYPE &nbsp;<a onclick='window.location="@Url.Action("Mydownloads","User", new { sortOrder = ViewBag.selltype, currentFilter = ViewBag.CurrentFilter})"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th style="width:10%;">
+                        PRICE &nbsp;<a onclick='window.location="@Url.Action("Mydownloads","User", new { sortOrder = ViewBag.price, currentFilter = ViewBag.CurrentFilter})"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th style="width:20%;">
+                        DOWNLOADED DATE &nbsp;<a onclick='window.location="@Url.Action("Mydownloads","User", new { sortOrder = ViewBag.date, currentFilter = ViewBag.CurrentFilter})"'><img src="~/img/sorticon.png" style="width:10px; height:16px;"></a>
+                    </th>
+                    <th style="width:3%;"></th>
+                    <th style="width:3%;"></th>
+                </tr>
+                @{
+                    int a = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr class="shadow">
+                            <td style="text-align: center;">
+                                @a
+                            </td>
+                            <td>
+                                <a href='@Url.Action("Notedetail", "User", new { id = item.noteid })' style="color:#6255a5">@Html.DisplayFor(modelItem => item.title)</a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.category)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.selltype)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.date)
+                            </td>
+                            <td style="text-align: center;"><img src="~/img/eye.png" onclick="location.href='@Url.Action("Notedetail", "User", new { id = item.noteid })'" /></td>
+                            <td style="text-align: center;">
+                                <div class="dropdown">
+                                    <button class="dropbtn"><img src="~/img/dots.png"></button>
+                                    <div class="dropdown-content">
+                                        <a href="@Url.Action("MyDownloadNote", "User", new {path = item.attachpath , id= item.noteid})">Download Note</a>
+                                        <a onclick="openreviewpopup('@item.noteid')">Add Review/ Feedback</a>
+                                        <a onclick="openinappropriatepopup('@item.title', '@item.noteid')">Report as inappropriate</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        a = a + 1;
+                    }
+                }
+            </table>
+        </div>
+        <div style="text-align:center; ">
+            @Html.PagedListPager(Model, page => Url.Action("Mydownloads",
+                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        </div>
+    </div>
+</section>
+<form id="addreview-popup" action="@Url.Action("rating", "User")" method="post" style="position:fixed;">
+    <h3>Add Review</h3><span class="close" onclick="closepopup()">x</span>
+    <input type="text" class="textbox" name="id" id="id" readonly hidden />
+    <input type="text" class="textbox" name="rating" id="rating" readonly hidden />
+    <div class='rating-stars'>
+        <ul id='stars'>
+            <li class='star' title='Poor' data-value='1'>
+                <i class='fa fa-star fa-fw'></i>
+            </li>
+            <li class='star' title='Fair' data-value='2'>
+                <i class='fa fa-star fa-fw'></i>
+            </li>
+            <li class='star' title='Good' data-value='3'>
+                <i class='fa fa-star fa-fw'></i>
+            </li>
+            <li class='star' title='Excellent' data-value='4'>
+                <i class='fa fa-star fa-fw'></i>
+            </li>
+            <li class='star' title='WOW!!!' data-value='5'>
+                <i class='fa fa-star fa-fw'></i>
+            </li>
+        </ul>
+    </div>
+    <div class="form-group">
+        <label>Comments*</label>
+        <div>
+            <textarea name="comments" rows=4 placeholder="comments..." required></textarea>
+        </div>
+    </div>
+    <button id="button" class="submit">SUBMIT</button>
+</form>
+</div>
+
+<form method="post" action="@Url.Action("Inappropriate", "User")" class="inappropriate" id="inappropriate-popup" style="position:fixed;">
+    <img class="close" src="~/img/close.png" onclick="location.href='@Url.Action("MyDownloads", "User")'" />
+    <h2>Report an issue</h2><br>
+    <input type="text" class="textbox" name="id" id="id1" readonly hidden />
+    <input type="text" class="textbox" id="title" readonly />
+    <label>Remark*</label>
+    <textarea class="textarea" name="remark" rows="4" required></textarea>
+    <button type="submit" onclick="return confirm('Are you sure you want to mark this report as spam, you cannot update it later?');">Submit</button>
+</form>

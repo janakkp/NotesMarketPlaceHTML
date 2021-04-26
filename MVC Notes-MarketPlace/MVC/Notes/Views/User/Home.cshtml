@@ -1,0 +1,176 @@
+﻿
+
+
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/HomeLayout.cshtml";
+}
+
+<div id="homepage">
+    <section id="homepage_banner">
+        <div class="container">
+            <div class="row">
+                <div id="homepage_banner-content">
+                    <div id="homepage_banner-content-inner">
+                        <div id="homepage_banner-heading">
+                            <h1 id="homepage_banner-heading-1">Download Free/Paid Notes<br>or Sale your Books</h1>
+                        </div>
+                        <div id="homepage_banner-text">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam in nihil<br>minima unde qui nihil minima.</p>
+                        </div>
+                        <div id="homepage_banner-btn">
+                            <a href="@Url.Action("Faqs","User")" title="start Now" role="button">LEARN MORE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="about">
+        <div class="container">
+            <div class="row">
+                <!--About Left Side-->
+                <div class="col-md-5 col-sm-12 col-xs-12">
+                    <div id="about-left">
+                        <div class="vertical-heading">
+                            <h1>About<br>NotesMarketPlace</h1>
+                        </div>
+                    </div>
+                </div>
+                <!--About Riht Side-->
+                <div class="col-md-7 col-sm-12 col-xs-12">
+                    <div id="about-right">
+                        <p id="p1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente aspernatur harum libero et nostrum sequi consequatur, tempore accusamus ab esse, voluptatem laudantium voluptas rerum? Laborum id ad alias saepe nemo, alias saepe ne consequatur.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur asperiores ad culpa similique, ratione dicta. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur asperiores ad culpa similique, ratione dicta. </p>
+
+                        <p id="p2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur asperiores ad culpa similique, ratione dicta. Cumue, officia. Velit et inventore hic, unde, eum ea! Vitae dolores culpa molestias, in ratione.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur asperiores ad culpa similique, ratione dicta. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur asperiores ad culpa similique, ratione dicta. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="work">
+        <div class="heading">
+            <h1>How it works</h1>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div id="work-1">
+                        <div id="work-img">
+                            <img src="~/img/download.png" alt="team member" class="img-responsive">
+                        </div>
+                        <div class="vertical-heading">
+                            <div class="h1">
+                                <h1>Download Free/Paid Notes</h1>
+                            </div>
+                            <div class="h5"><h5>Get material for your<br> Course etc.</h5></div>
+                        </div>
+                        <div id="download-btn">
+                            <button id="sell-btn" onclick='window.location = "@Url.Action("Searchnote","User")"'> DOWNLOAD</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div id="work-2">
+                        <div id="work-img">
+                            <img src="~/img/seller.png" alt="team member" class="img-responsive">
+                        </div>
+                        <div class="vertical-heading">
+                            <div class="h1">
+                                <h1>Sellers</h1>
+                            </div>
+                            <div class="h5">
+                                <h5>Upload and Download Cource<br> and material etc.</h5>
+                            </div>
+                        </div>
+                        <div id="download-btn">
+                            <button id="sell-btn" onclick='window.location = "@Url.Action("Login","User")"'>SELL NOTE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="customers">
+        <div class="heading">
+            <h1>What Our customers are Saying</h1>
+        </div>
+        <div class="container">
+            <div class="row">
+                <!--Customer 01-->
+                <div class="col-md-6  col-sm-6 col-xs-12">
+                    <div id="customer">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-3 col-xs-2 cust-img">
+                                <img src="~/img/customer-1.png" alt="team member" class="img-responsive">
+                            </div>
+                            <div class="col-md-10 col-sm-9 col-xs-10">
+                                <h1>Walter Meller</h1><br>
+                                <h5>Founder & CEO, matrix Group</h5>
+                            </div>
+                        </div>
+                        <div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur asperiores ad culpa similique, ratione dicta. Cumue, officia. Velit et inventore hic, unde, eum ea! Vitae dolores culpa molestias, in ratione.</p>
+                        </div>
+                    </div>
+                </div>
+                <!--Customer 02-->
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div id="customer">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-3  col-xs-2 cust-img">
+                                <img src="~/img/customer-2.png" alt="team member" class="img-responsive">
+                            </div>
+                            <div class="col-md-10 col-sm-9 col-xs-10">
+                                <h1>Jonnie Riley</h1><br>
+                                <h5>Employee, Curious Snakcs</h5>
+                            </div>
+                        </div>
+                        <div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur asperiores ad culpa similique, ratione dicta. Cumue, officia. Velit et inventore hic, unde, eum ea! Vitae dolores culpa molestias, in ratione.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--Customer 03-->
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div id="customer">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-3 col-xs-2 cust-img">
+                                <img src="~/img/customer-3.png" alt="team member" class="img-responsive">
+                            </div>
+                            <div class="col-md-10 col-sm-9 col-xs-10">
+                                <h1>Amilia Luna</h1><br>
+                                <h5>Teacher, Saint Joseph High School</h5>
+                            </div>
+                        </div>
+                        <div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur asperiores ad culpa similique, ratione dicta. Cumue, officia. Velit et inventore hic, unde, eum ea! Vitae dolores culpa molestias, in ratione.</p>
+                        </div>
+                    </div>
+                </div>
+                <!--Customer 04-->
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div id="customer">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-3 col-xs-2 cust-img">
+                                <img src="~/img/customer-4.png" alt="team member" class="img-responsive">
+                            </div>
+                            <div class="col-md-10 col-sm-9 col-xs-10">
+                                <h1>Daniel Cardos</h1><br>
+                                <h5>Software Engineer, Infinitum Company</h5>
+                            </div>
+                        </div>
+                        <div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur asperiores ad culpa similique, ratione dicta. Cumue, officia. Velit et inventore hic, unde, eum ea! Vitae dolores culpa molestias, in ratione.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+

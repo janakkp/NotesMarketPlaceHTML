@@ -1,0 +1,341 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatibility" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- title -->
+    <title>Notes - Market Place</title>
+
+    <!-- Favicon-for icon if website title -->
+    <link rel="shortcut icon" href="~/img/favicon.ico">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="@Url.Content("~/content/jquery.rateyo.min.css")" rel="stylesheet" typeof="text/css" />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    @Styles.Render("~/Content/admin")
+    @Scripts.Render("~/bundles/admin")
+    <style>
+        table {
+        min-width:1130px;
+        }
+        table .shadow:hover {
+            box-shadow: 2px 2px 3px 3px #ccc;
+            z-index: 2;
+        }
+
+        table th {
+            color: #6255a5;
+        }
+
+        table td, table th {
+            font-size: 15px;
+            text-align: center;
+        }
+
+            table td a, table th a {
+                text-decoration: none;
+            }
+
+                table td a:hover, table th a:hover {
+                    text-decoration: none;
+                }
+        .userimg {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-top: -5px;
+        }
+
+        #unpublish-popup {
+            position: fixed;
+            left: 50%;
+            top: 100px;
+            position: absolute;
+            -webkit-transform: translate3d(-50%, 0, 0);
+            transform: translate3d(-50%, 0, 0);
+            margin: auto;
+            width: 420px;
+            background-color: #fff;
+            padding: 30px;
+            display: none;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,.2);
+            z-index: 2;
+        }
+
+            #unpublish-popup .close {
+                position: fixed;
+                font-size: 25px;
+                top: 10px;
+                right: 10px;
+            }
+
+                #unpublish-popup .close:hover {
+                    color: #6255a5;
+                }
+
+            #unpublish-popup h2 {
+                font-size: 20px;
+                font-weight: 600;
+            }
+
+            #unpublish-popup .textbox {
+                width: 100%;
+                height: 35px;
+                border: 1px solid lightgray;
+                border-radius: 4px;
+                margin-bottom: 20px;
+            }
+
+            #unpublish-popup .textarea {
+                width: 100%;
+                border: 1px solid lightgray;
+                margin-bottom: 20px;
+            }
+
+            #unpublish-popup label {
+                font-weight: 400;
+                margin: 0;
+                padding: 0;
+            }
+
+            #unpublish-popup button, #unpublish-popup .reject, #unpublish-popup .cencel {
+                background-color: #6255a5;
+                width: 100px;
+                height: 35px;
+                color: white;
+                border: none;
+                margin: 0 10px;
+            }
+
+            #unpublish-popup .reject {
+                font-size: 16px;
+                font-weight: 600;
+                background-color: red;
+            }
+
+            #unpublish-popup .cencel {
+                font-size:16px;
+                font-weight:600;
+                background-color: lightgray;
+            }
+
+            #unpublish-popup h2 {
+                color: #6255a5;
+            }
+    </style>
+</head>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="65">
+    <div class="content">
+
+        <!-- header -->
+        <header>
+            <nav class="navbar navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="site-nav-wrapper">
+                        <div class="navbar-header">
+                            <!-- Mobile Menu Open Button -->
+                            <span id="mobile-nav-open-btn">&#9776;</span>
+                            <!-- Logo -->
+                            <a href="#home" class="navbar-brand"><img src="~/img/logo.png" alt="logo" onclick='window.location="@Url.Action("Dashboard", "Admin")"'></a>
+                        </div>
+                        <!-- Main Menu -->
+                        <div class="container">
+                            <div class="collapse navbar-collapse">
+                                <img class="sample" src="~/img/logo.png" alt="logo" onclick='window.location="@Url.Action("Dashboard", "Admin")"'>
+                                <ul class="nav navbar-nav pull-right">
+                                        <li><a class="smooth-scroll a1" onclick='window.location="@Url.Action("Dashboard", "Admin")"'>Dashboard</a></li>
+                                        <li>
+                                            <div class="dropdown">
+                                                <button class="dropbtn a1">Notes </button>
+                                                <div class="dropdown-content">
+                                                    <a onclick='window.location="@Url.Action("NotesUnderReview", "Admin")"'>Notes Under Review</a>
+                                                    <a onclick='window.location="@Url.Action("PublishedNote", "Admin")"'>Published Notes</a>
+                                                    <a onclick='window.location="@Url.Action("DownloadedNotes", "Admin")"'>Downloaded Notes</a>
+                                                    <a onclick='window.location="@Url.Action("RejectedNotes", "Admin")"'>Rejected Notes</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li><a class="smooth-scroll a1" onclick='window.location="@Url.Action("Members", "Admin")"'>Members</a></li>
+                                        <li>
+                                            <div class="dropdown">
+                                                <button class="dropbtn a1">Report </button>
+                                                <div class="dropdown-content">
+                                                    <a onclick='window.location="@Url.Action("spamreport", "Admin")"'>Spam Reports</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="dropdown">
+                                                <button class="dropbtn a1">Settings </button>
+                                                <div class="dropdown-content">
+                                                    @{  
+                                                        int userrole = Convert.ToInt32(Session["usrrole"]);
+                                                        if (userrole.Equals(3))
+                                                        {
+                                                            <a onclick='window.location="@Url.Action("ManageSystemConfiguration", "Admin")"'>Manage System Configuration</a>
+                                                            <a onclick='window.location="@Url.Action("ManageAdministrator", "Admin")"'>Manage Administrators</a>
+                                                        }
+                                                     }
+                                                        <a onclick='window.location="@Url.Action("ManageCategory", "Admin")"'>Manage Category</a>
+                                                        <a onclick='window.location="@Url.Action("ManageType", "Admin")"'>Manage Type</a>
+                                                        <a onclick='window.location="@Url.Action("ManageCountry", "Admin")"'>Manage Country</a>
+                                                    </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="dropdown">
+                                                @{
+                                                    var profilephto = Session["Userprofile"];
+                                                    <button class="dropbtn"><img src="~/UserFile/UserProfile/@profilephto" class="userimg"> </button>
+                                                }
+                                                <div class="dropdown-content">
+                                                    <a onclick='window.location="@Url.Action("Myprofile", "Admin")"'>Update Profile</a>
+                                                    <a onclick='window.location="@Url.Action("ChangePassword", "User")"'>Change Password</a>
+                                                    <a onclick='window.location="@Url.Action("Logout", "Admin")"'>LOGOUT</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li><a class="smooth-scroll"><button id="logout" onclick='window.location="@Url.Action("Logout", "Admin")"'>Logout</button></a></li>
+                                    </ul>
+                                </div>
+                        </div>
+
+                        <!-- Mobile Menu -->
+                        <div id="mobile-nav">
+                            <!-- Mobile Menu Close Button -->
+                            <img id="mobile-nav-logo" src="~/img/logo.png" alt="logo" onclick='window.location="@Url.Action("Dashboard", "Admin")"'>
+                            <span id="mobile-nav-close-btn">&times;</span>
+                            <div id="mobile-nav-content">
+                                <ul class="nav">
+                                    <li><a class="smooth-scroll" onclick='window.location="@Url.Action("Dashboard", "Admin")"'>Dashboard</a></li>
+                                    <li>
+                                        <div class="dropdown">
+                                            <button class="dropbtn">Notes </button>
+                                            <div class="dropdown-content">
+                                                <a onclick='window.location="@Url.Action("NotesUnderReview", "Admin")"'>Notes Under Review</a>
+                                                <a onclick='window.location="@Url.Action("PublishedNote", "Admin")"'>Published Notes</a>
+                                                <a onclick='window.location="@Url.Action("DownloadedNotes", "Admin")"'>Downloaded Notes</a>
+                                                <a onclick='window.location="@Url.Action("RejectedNotes", "Admin")"'>Rejected Notes</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li><a class="smooth-scroll" onclick='window.location="@Url.Action("Members", "Admin")"'>Members</a></li>
+                                    <li>
+                                        <div class="dropdown">
+                                            <button class="dropbtn">Reports </button>
+                                            <div class="dropdown-content">
+                                                <a onclick='window.location="@Url.Action("spamreport", "Admin")"'>Spam Reports</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown">
+                                            <button class="dropbtn">Settings </button>
+                                            <div class="dropdown-content">
+                                                @{
+                                                    int userrole1 = Convert.ToInt32(Session["usrrole"]);
+                                                    if (userrole1.Equals(3))
+                                                    {
+                                                        <a onclick='window.location="@Url.Action("managesystemconfiguration", "Admin")"'>Manage System Configuration</a>
+                                                        <a onclick='window.location="@Url.Action("ManageAdministrator", "Admin")"'>Manage Administrators</a>
+                                                    } 
+                                                 }
+                                                <a onclick='window.location="@Url.Action("ManageCategory","Admin")"'>Manage Category</a>
+                                                <a onclick='window.location="@Url.Action("ManageType","Admin")"'>Manage Type</a>
+                                                <a onclick='window.location="@Url.Action("ManageCountry","Admin")"'>Manage Country</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown">
+                                            <div class="dropdown">
+                                                @{
+                                                    var profilephto2 = Session["Userprofile"];
+                                                    <button class="dropbtn"><img src="~/UserFile/UserProfile/@profilephto2" class="userimg"> </button>
+                                                }
+                                                <div class="dropdown-content">
+                                                    <a onclick='window.location="@Url.Action("Myprofile", "Admin")"'>Update Profile</a>
+                                                    <a onclick='window.location="@Url.Action("ChangePassword", "User")"'>Change Password</a>
+                                                    <a onclick='window.location="@Url.Action("Logout", "Admin")"'>LOGOUT</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li><a class="smooth-scroll"><button id="logout" onclick='window.location="@Url.Action("Logout", "Admin")"'>Logout</button></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <!-- End header -->
+
+        @RenderBody()
+    </div>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <p>Copyright &copy; Tatvasoft All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+    function unpublishpopup(title, id) {
+    var x = document.getElementById("unpublish-popup");
+    x.style.display = "block";
+    document.getElementById("title").value = title;
+    document.getElementById("id1").value = id;
+    }
+    function closeunpublishpopup() {
+        var x = document.getElementById("unpublish-popup");
+    x.style.display = "none";
+    }
+    function rejectpopup(title, id) {
+        var x = document.getElementById("unpublish-popup");
+        x.style.display = "block";
+        document.getElementById("title").innerHTML = title;
+        document.getElementById("id1").value = id;
+    }
+    function closerejectpopup() {
+        var x = document.getElementById("unpublish-popup");
+        x.style.display = "none";
+    }
+
+    </script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/header.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.js")"></script>
+    <script src="@Url.Content("~/Scripts/script.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.rateyo.min.js")"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
